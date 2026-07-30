@@ -42,6 +42,7 @@ To keep our codebase organized and prevent conflicts, work is divided into speci
 └── /sql
     └── schema.sql             # Relational MySQL database structure
 
+```
 
 ## 3. Team Work Division & Responsibilities
 
