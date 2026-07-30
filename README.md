@@ -135,4 +135,4 @@ Follow these exact steps to run the application on your local development machin
 5.  **Open a Pull Request:**
     *   Go to the repository on GitHub.
     *   Click **Compare & pull request** next to your pushed branch.
-    *   Add a brief description of what you built and tag **Salem Nyoike** for review and merging.
+    *   Add a brief description of what you built and tag **Salem Nyoike** for review and merging. 
