@@ -1,0 +1,175 @@
+/* ==========================================================================
+   NSE MKU CLUB — OFFICIAL UI DESIGN STANDARDS & CSS VARIABLES
+   ========================================================================== */
+
+:root {
+    /* 1. Brand Color Palette (NSE + Mount Kenya University Integration) */
+    --primary-green:    #58A62A; /* Vibrant growth green from chart line */
+    --accent-green:     #468B1E; /* Deeper hover state green */
+    --dark-navy:        #2C3540; /* Slate / Charcoal navy from NSE text */
+    
+    /* MKU University Brand Accents */
+    --mku-royal-blue:   #003366; /* Official Mount Kenya University Blue */
+    --mku-gold:         #FDB813; /* MKU Crest Gold / Unlocking Possibilities Yellow */
+    
+    --text-muted:       #5C6773; /* Subtitles & secondary labels */
+    --bg-light:         #F4F6F8; /* Global page background */
+    --card-bg:          #FFFFFF; /* White card containers */
+    --border-color:     #E2E7ED; /* Dividers & form input borders */
+
+    /* 2. Standardized Spacing (Margin & Padding Scale) */
+    --space-xs:         4px;
+    --space-sm:         8px;
+    --space-md:         16px;
+    --space-lg:         24px;
+    --space-xl:         32px;
+    --space-xxl:        48px;
+
+    /* 3. Border Radius Standards */
+    --radius-sm:        4px;     /* Badges & small tags */
+    --radius-md:        8px;     /* Buttons, form inputs & standard cards */
+    --radius-lg:        12px;    /* Large feature containers & modals */
+
+    /* 4. Layout Constraints */
+    --max-width:        1100px;  /* Site-wide desktop container limit */
+}
+
+/* ==========================================================================
+   GLOBAL RESET & BASE TYPOGRAPHY
+   ========================================================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--dark-navy);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+}
+
+/* ==========================================================================
+   STANDARDIZED UI COMPONENTS (CARDS, BUTTONS & FORMS)
+   ========================================================================== */
+
+/* Standard Section Cards (Use for all content blocks) */
+.section-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    border-top: 4px solid var(--mku-royal-blue); /* MKU Blue accent bar on cards */
+}
+
+/* Standard Buttons (Primary, Secondary, MKU Accent & Sizing) */
+.btn {
+    display: inline-block;
+    background-color: var(--primary-green);
+    color: #FFFFFF;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 10px var(--space-lg);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+    background-color: var(--accent-green);
+}
+
+.btn-secondary {
+    background-color: var(--mku-royal-blue);
+    color: #FFFFFF;
+}
+
+.btn-secondary:hover {
+    background-color: #002244;
+}
+
+.btn-accent {
+    background-color: var(--mku-gold);
+    color: var(--dark-navy);
+    font-weight: 700;
+}
+
+.btn-accent:hover {
+    background-color: #E5A400;
+}
+
+/* Standardized Form Inputs */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px var(--space-md);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    color: var(--dark-navy);
+    margin-top: var(--space-xs);
+    margin-bottom: var(--space-md);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--mku-royal-blue);
+    box-shadow: 0 0 0 2px rgba(0, 51, 102, 0.15);
+}
+
+/* ==========================================================================
+   FORM & INPUT STACKING LAYOUT FIXES
+   ========================================================================== */
+
+form label {
+    display: block;
+    font-size: 0.95rem;
+    color: var(--dark-navy);
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-xs);
+}
+
+form label:first-child {
+    margin-top: 0;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="number"],
+form input[type="password"],
+form select,
+form textarea {
+    display: block;
+    width: 100%;
+    padding: 12px var(--space-md);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    color: var(--dark-navy);
+    background-color: #FFFFFF;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+form input:focus {
+    outline: none;
+    border-color: var(--mku-royal-blue);
+    box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.12);
+}
