@@ -45,7 +45,7 @@ $userRole = $_SESSION['user_role'] ?? 'USER';
             <p style="color: var(--text-muted); font-size: 0.95rem; margin: 10px 0;">
                 Practice buying and selling NSE shares with virtual capital. Track your performance against the market.
             </p>
-            <a href="#tracker" class="btn" style="display: inline-block; margin-top: 10px;">Launch Tracker</a>
+            <a href="/NSE-Club-Website/modules/tracker/index.php" class="btn" style="display: inline-block; margin-top: 10px;">Launch Tracker</a>
         </div>
 
         <!-- Card 2: Learning Hub (Available to everyone logged in) -->
