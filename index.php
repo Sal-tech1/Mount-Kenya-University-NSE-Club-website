@@ -1,6 +1,3 @@
-<?php
-// NSE MKU Investment Club — Public Homepage
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,40 +22,50 @@
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
   <!-- Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 </head>
 
 <body class="index-page">
 
-  <header id="header" class="header sticky-top">
-    <div class="branding d-flex align-items-center">
-      <div class="container position-relative d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center">
-          <h1 class="sitename">NSE Club MKU</h1>
-        </a>
+<header id="header" class="header sticky-top">
+  <div class="branding d-flex align-items-cente">
 
-        <nav id="navmenu" class="navmenu">
-          <ul>
-            <li><a href="#hero" class="active">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#learning">Learning</a></li>
-            <li><a href="#portfolio">Markets</a></li>
-            <li><a href="#team">Leadership</a></li>
-            <li class="dropdown"><a href="#"><span>Portal</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-              <ul>
-                <li><a href="#">Sign In</a></li>
-                <li><a href="#">Sign Up</a></li>
-              </ul>
-            </li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-        </nav>
-      </div>
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+      <a href="index.php" class="logo d-flex align-items-center">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="assets/img/logo.webp" alt=""> -->
+        <h1 class="sitename">MKU NSE Club</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.php#hero">Home</a></li>
+          <li class="dropdown"><a href="index.php#about"><span>About</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="about.php">About Us</a></li>
+              <li><a href="leadership.php" class="active">Leadership</a></li>
+              <li><a href="gallery.php">Gallery</a></li>
+            </ul>
+          </li>
+          <li><a href="index.php#learning">Learning</a></li>
+          <li><a href="index.php#portfolio">Markets</a></li>
+          <li class="dropdown"><a href="#"><span>Portal</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="modules/portal/login.php">Sign In</a></li>
+              <li><a href="modules/portal/register.php">Sign Up</a></li>
+            </ul>
+          </li>
+          <li><a href="index.php#contact">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
     </div>
-  </header>
+
+  </div>
+
+</header>
 
   <main class="main">
 
@@ -67,7 +74,7 @@
       <div class="container">
         <div class="row gy-4">
           <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="zoom-out">
-            <h1>Welcome to <span>MKU NSE Club</span></h1>
+            <h1>Welcome to <br><span>MKU NSE Club</span></h1>
             <p>We are a premier student investment club at Mount Kenya University, empowering the next generation of financial leaders through education and practical market experience.</p>
             <div class="d-flex">
               <a href="" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
@@ -348,65 +355,81 @@
       </div>
     </section><!-- /Portfolio Section -->
 
-    <!-- Team Section -->
-    <section id="team" class="team section light-background">
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Leadership</h2>
-        <p><span>Our</span> <span class="description-title">Leadership</span></p>
+<!-- Team Section -->
+<section id="team" class="team section light-background">
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Leadership</h2>
+    <p><span>Our</span> <span class="description-title">Leadership</span></p>
+  </div>
+
+  <div class="container">
+    <div class="row gy-4">
+      
+      <!-- Leader 1: Joe -->
+      <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+        <a href="leadership.php#profile-joe" style="text-decoration: none; color: inherit;">
+          <div class="team-leadership">
+            <div class="leadership-img">
+              <img src="assets/img/team/team-1.jpg" class="img-fluid" alt="Club President">
+            </div>
+            <div class="leadership-info">
+              <h4>Joe</h4>
+              <span>Club President</span>
+            </div>
+          </div>
+        </a>
       </div>
 
-      <div class="container">
-        <div class="row gy-4">
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-            <div class="team-leadership">
-              <div class="leadership-img">
-                <img src="assets/img/team/team-1.jpg" class="img-fluid" alt="Club President">
-              </div>
-              <div class="leadership-info">
-                <h4>Joe</h4>
-                <span>Club President</span>
-              </div>
+      <!-- Leader 2: Sarah -->
+      <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+        <a href="leadership.php#profile-sarah" style="text-decoration: none; color: inherit;">
+          <div class="team-leadership">
+            <div class="leadership-img">
+              <img src="assets/img/team/team-2.jpg" class="img-fluid" alt="Vice President">
+            </div>
+            <div class="leadership-info">
+              <h4>Sarah</h4>
+              <span>Vice President</span>
             </div>
           </div>
+        </a>
+      </div>
 
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-            <div class="team-leadership">
-              <div class="leadership-img">
-                <img src="assets/img/team/team-2.jpg" class="img-fluid" alt="Vice President">
-              </div>
-              <div class="leadership-info">
-                <h4>Sarah</h4>
-                <span>Vice President</span>
-              </div>
+      <!-- Leader 3: David -->
+      <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+        <a href="leadership.php#profile-david" style="text-decoration: none; color: inherit;">
+          <div class="team-leadership">
+            <div class="leadership-img">
+              <img src="assets/img/team/team-3.jpg" class="img-fluid" alt="Head of Research">
+            </div>
+            <div class="leadership-info">
+              <h4>David</h4>
+              <span>Head of Research</span>
             </div>
           </div>
+        </a>
+      </div>
 
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
-            <div class="team-leadership">
-              <div class="leadership-img">
-                <img src="assets/img/team/team-3.jpg" class="img-fluid" alt="Head of Research">
-              </div>
-              <div class="leadership-info">
-                <h4>David</h4>
-                <span>Head of Research</span>
-              </div>
+      <!-- Leader 4: Mercy -->
+      <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
+        <a href="leadership.php#profile-mercy" style="text-decoration: none; color: inherit;">
+          <div class="team-leadership">
+            <div class="leadership-img">
+              <img src="assets/img/team/team-4.jpg" class="img-fluid" alt="Treasurer">
+            </div>
+            <div class="leadership-info">
+              <h4>Mercy</h4>
+              <span>Treasurer</span>
             </div>
           </div>
+        </a>
+      </div>
 
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
-            <div class="team-leadership">
-              <div class="leadership-img">
-                <img src="assets/img/team/team-4.jpg" class="img-fluid" alt="Treasurer">
-              </div>
-              <div class="leadership-info">
-                <h4>Njeri</h4>
-                <span>Treasurer</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>  
-    </section><!-- /Team Section -->
+    </div>
+  </div>  
+</section><!-- /Team Section -->
+
+
 
     <!-- Faq Section -->
     <section id="faq" class="faq section light-background">
@@ -556,12 +579,13 @@
 
   </main>
 
+
   <!-- Footer Section -->
   <footer id="footer" class="footer">
     <div class="container footer-top">
       <div class="row gy-4">
         <div class="col-lg-4 col-md-6 footer-about">
-          <a href="index.html" class="d-flex align-items-center">
+          <a href="index.php" class="d-flex align-items-center">
             <span class="sitename">NSE MKU Club</span>
           </a>
           <div class="footer-contact pt-3">
@@ -572,15 +596,16 @@
           </div>
         </div>
 
+
         <div class="col-lg-2 col-md-3 footer-links">
           <h4>Explore</h4>
           <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="#hero">Home</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#about">About</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#portfolio">Markets</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#learning">Learning</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#team">Leadership</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#contact">Contact</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="index.php#hero">Home</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="about.php">About</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="index.php#portfolio">Markets</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="index.php#learning">Learning</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="leadership.php">Leadership</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="index.php#contact">Contact</a></li>
           </ul>
         </div>
 
@@ -650,6 +675,33 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+  <!-- Auto-open Specific Leader Profile Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Check if there is a hash in the URL (e.g., #profile-joe)
+      if (window.location.hash) {
+        var hash = window.location.hash;
+        
+        // Find the specific "View Profile" button for this leader
+        var trigger = document.querySelector('a.glightbox[href="' + hash + '"]');
+        
+        // If the button exists, click it automatically after a short delay
+        if (trigger) {
+          setTimeout(function() {
+            trigger.click();
+          }, 600); // 600ms ensures main.js has fully initialized the gallery first
+        }
+      }
+    });
+  </script>
+
+
 
 </body>
 </html>

@@ -1,9 +1,16 @@
-# Ignore local database config
-config.php
+# Ignore database credentials
+includes/db.php
 
-# Ignore VS Code local settings
+# Ignore environment files (if you use them)
+.env
+
+# Ignore IDE settings
 .vscode/
+.idea/
 
 # Ignore OS files
 .DS_Store
 Thumbs.db
+
+# Ignore logs
+*.log

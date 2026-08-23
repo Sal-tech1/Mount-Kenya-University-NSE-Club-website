@@ -9,6 +9,13 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+// 1. Tell the header we are 2 folders deep so assets load correctly
+$asset_path = '../..';
+
+// 2. Set page-specific variables for the header
+$pageTitle = 'Portfolio Tracker | NSE MKU Portal';
+$bodyClass = 'tracker-page';
+
 require_once __DIR__ . '/../../includes/header.php';
 require_once __DIR__ . '/../../includes/db.php';
 
@@ -125,7 +132,8 @@ try {
         <!-- Left Column: Trade Logging Form -->
         <div class="section-card">
             <h3 style="margin-bottom: 16px; color: var(--dark-navy);">Log a Practice Trade</h3>
-            <form method="POST" action="index.php">
+            <!-- Changed action to "" for safer self-submission -->
+            <form method="POST" action="">
                 <input type="hidden" name="log_trade" value="1">
 
                 <label for="ticker_symbol"><strong>NSE Ticker Symbol</strong></label>

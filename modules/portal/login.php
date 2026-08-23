@@ -1,7 +1,12 @@
+
+
 <?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+// TELL THE HEADER: We are 2 folders deep, go up to find assets
+$asset_path = '../..';
 
 require_once __DIR__ . '/../../includes/header.php';
 require_once __DIR__ . '/../../includes/db.php';
@@ -15,6 +20,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
     $email    = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
 
@@ -57,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         <?php endif; ?>
 
-        <form method="POST" action="login.php">
+        <form method="POST" action="">
             <label for="email"><strong>Email Address</strong></label>
             <input type="email" id="email" name="email" required placeholder="member@student.mku.ac.ke">
 

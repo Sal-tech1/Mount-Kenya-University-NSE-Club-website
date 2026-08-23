@@ -218,32 +218,77 @@
 
   /**
    * Smooth scroll for all anchor links (Fixes the navigation click scrolling)
+   */  /**
+   * Custom Smooth Scroll (Fixes fast/jerky native scrolling)
+   */
+  function smoothScrollTo(targetPosition, duration = 800) {
+    const startPosition = window.pageYOffset;
+    const distance = targetPosition - startPosition;
+    let startTime = null;
+
+    // Easing function for a natural, premium feel
+    function easeInOutQuad(t, b, c, d) {
+      t /= d / 2;
+      if (t < 1) return c / 2 * t * t + b;
+      t--;
+      return -c / 2 * (t * (t - 2) - 1) + b;
+    }
+
+    function animation(currentTime) {
+      if (startTime === null) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
+      window.scrollTo(0, run);
+      if (timeElapsed < duration) requestAnimationFrame(animation);
+    }
+
+    requestAnimationFrame(animation);
+  }
+
+  /**
+   * Apply custom smooth scroll to all anchor links
    */
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       const href = this.getAttribute('href');
-      if (href === '#' || href === '') return; // Ignore empty hashes
+      if (href === '#' || href === '') return; 
       
       const target = document.querySelector(href);
       if (target) {
         e.preventDefault();
         
-        // Calculate the sticky header height to avoid content hiding behind it
         const header = document.querySelector('#header');
         const headerHeight = header ? header.offsetHeight : 0;
-        
-        // Check if the target section has a scroll-margin-top set in CSS
         const scrollMargin = parseInt(getComputedStyle(target).scrollMarginTop) || 0;
         const offset = scrollMargin > 0 ? scrollMargin : headerHeight;
 
-        window.scrollTo({
-          top: target.offsetTop - offset,
-          behavior: 'smooth'
-        });
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        
+        // 800ms duration for a smooth, controlled glide
+        smoothScrollTo(targetPosition, 800);
       }
     });
   });
 
+  /**
+   * Correct scrolling position upon page load for URLs containing hash links.
+   */
+  window.addEventListener('load', function(e) {
+    if (window.location.hash) {
+      const target = document.querySelector(window.location.hash);
+      if (target) {
+        setTimeout(() => {
+          const header = document.querySelector('#header');
+          const headerHeight = header ? header.offsetHeight : 0;
+          const scrollMargin = parseInt(getComputedStyle(target).scrollMarginTop) || 0;
+          const offset = scrollMargin > 0 ? scrollMargin : headerHeight;
+          
+          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+          smoothScrollTo(targetPosition, 600); // Slightly faster on initial load
+        }, 100);
+      }
+    }
+  });
   /**
    * Correct scrolling position upon page load for URLs containing hash links.
    */
