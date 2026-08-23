@@ -1,3 +1,6 @@
+<?php
+// NSE MKU Investment Club — Public Homepage
+?>
 <!DOCTYPE html>
 <html lang="en">
 
