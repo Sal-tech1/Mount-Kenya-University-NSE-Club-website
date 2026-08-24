@@ -10,14 +10,14 @@ $level = strtolower(trim($_GET['level'] ?? ''));
 if (!isset($quizzes[$level])) {
     http_response_code(404);
     ?>
-    <main class="learning">
-        <div class="container learning-body">
-            <div class="quiz-empty">
-                <h1>Assessment not found</h1>
-                <p>Return to the learning centre and select a module assessment.</p>
-                <a href="index.php" class="btn btn-secondary">Learning centre</a>
+    <main class="main">
+        <section class="section light-background min-vh-100 d-flex align-items-center">
+            <div class="container text-center">
+                <h2>Assessment not found</h2>
+                <p class="mb-4">Return to the learning centre and select a module assessment.</p>
+                <a href="index.php" class="btn btn-primary">Learning centre</a>
             </div>
-        </div>
+        </section>
     </main>
     <?php
     require_once __DIR__ . '/../../includes/footer.php';
@@ -64,100 +64,117 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<main class="learning learning--quiz">
+<main class="main">
 
-    <section class="quiz-topbar">
-        <div class="container quiz-topbar__inner">
-            <a href="index.php" class="quiz-topbar__back">Learning centre</a>
-            <span class="quiz-topbar__meta"><?php echo htmlspecialchars($tierLabel); ?> module</span>
+    <section class="section light-background pt-5 pb-4">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <a href="index.php" class="text-decoration-none btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> Back to Modules</a>
+                <span class="badge bg-primary rounded-pill px-3 py-2 fs-6"><?php echo htmlspecialchars($tierLabel); ?> module</span>
+            </div>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center" data-aos="fade-up">
+                    <h1 class="mb-3"><?php echo htmlspecialchars($quiz['title']); ?></h1>
+                    <?php if (!empty($quiz['description'])): ?>
+                        <p class="text-muted fs-5"><?php echo htmlspecialchars($quiz['description']); ?></p>
+                    <?php endif; ?>
+                    <?php if ($results === null): ?>
+                        <div class="d-flex justify-content-center gap-4 mt-4">
+                            <span class="fw-bold"><i class="bi bi-ui-checks text-primary"></i> <?php echo count($questions); ?> questions</span>
+                            <span class="fw-bold"><i class="bi bi-bullseye text-primary"></i> <?php echo $passMark; ?>% to pass</span>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
         </div>
     </section>
 
-    <div class="container learning-body learning-body--narrow">
-
-        <header class="quiz-header">
-            <h1 class="quiz-header__title"><?php echo htmlspecialchars($quiz['title']); ?></h1>
-            <?php if (!empty($quiz['description'])): ?>
-                <p class="quiz-header__desc"><?php echo htmlspecialchars($quiz['description']); ?></p>
-            <?php endif; ?>
-            <?php if ($results === null): ?>
-                <p class="quiz-header__count"><?php echo count($questions); ?> questions · <?php echo $passMark; ?>% to pass</p>
-            <?php endif; ?>
-        </header>
+    <div class="container section">
+        <div class="row justify-content-center">
+            <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
 
         <?php if ($results !== null): ?>
 
-            <section class="quiz-score-panel <?php echo $results['passed'] ? 'quiz-score-panel--pass' : 'quiz-score-panel--fail'; ?>">
-                <div class="quiz-score-ring" style="--score: <?php echo (int) $results['percentage']; ?>">
-                    <span class="quiz-score-ring__value"><?php echo (int) $results['percentage']; ?>%</span>
+            <div class="card border-0 shadow-sm mb-5 <?php echo $results['passed'] ? 'bg-success bg-opacity-10' : 'bg-danger bg-opacity-10'; ?>">
+                <div class="card-body text-center p-5">
+                    <h2 class="display-1 fw-bold <?php echo $results['passed'] ? 'text-success' : 'text-danger'; ?>"><?php echo (int) $results['percentage']; ?>%</h2>
+                    <h3 class="mb-3 fw-bold <?php echo $results['passed'] ? 'text-success' : 'text-danger'; ?>"><?php echo $results['passed'] ? 'Passed!' : 'Not yet passed'; ?></h3>
+                    <p class="mb-0 fs-5 text-dark"><?php echo (int) $results['score']; ?> out of <?php echo (int) $results['total']; ?> correct</p>
                 </div>
-                <div class="quiz-score-panel__detail">
-                    <h2><?php echo $results['passed'] ? 'Passed' : 'Not yet'; ?></h2>
-                    <p><?php echo (int) $results['score']; ?> of <?php echo (int) $results['total']; ?> correct</p>
-                </div>
-            </section>
+            </div>
 
-            <section class="quiz-review">
-                <h2 class="quiz-review__heading">Answer review</h2>
+            <h3 class="mb-4">Answer Review</h3>
+            <div class="list-group list-group-flush mb-5 shadow-sm rounded">
                 <?php foreach ($results['review'] as $i => $item): ?>
-                    <article class="quiz-review-row <?php echo $item['is_correct'] ? 'quiz-review-row--ok' : 'quiz-review-row--miss'; ?>">
-                        <div class="quiz-review-row__marker" aria-hidden="true"></div>
-                        <div class="quiz-review-row__content">
-                            <p class="quiz-review-row__q">
-                                <span class="quiz-review-row__num"><?php echo $i + 1; ?></span>
-                                <?php echo htmlspecialchars($item['question'] ?: '—'); ?>
-                            </p>
-                            <p class="quiz-review-row__a">
-                                Your answer: <?php echo htmlspecialchars($item['selected'] ?: 'Skipped'); ?>
-                                <?php if (!$item['is_correct']): ?>
-                                    · Correct: <?php echo htmlspecialchars($item['correct']); ?>
-                                <?php endif; ?>
-                            </p>
+                    <div class="list-group-item bg-white border-bottom py-4 px-4">
+                        <h5 class="mb-4 lh-base">
+                            <span class="badge bg-secondary me-2"><?php echo $i + 1; ?></span>
+                            <?php echo htmlspecialchars($item['question'] ?: '—'); ?>
+                        </h5>
+                        
+                        <div class="d-flex align-items-center mb-2 <?php echo $item['is_correct'] ? 'text-success' : 'text-danger'; ?>">
+                            <i class="bi fs-5 <?php echo $item['is_correct'] ? 'bi-check-circle-fill' : 'bi-x-circle-fill'; ?> me-3"></i>
+                            <div class="fs-6">
+                                <strong>Your answer:</strong>&nbsp; <span class="text-dark"><?php echo htmlspecialchars($item['selected'] ?: 'Skipped'); ?></span>
+                            </div>
                         </div>
-                    </article>
+                        
+                        <?php if (!$item['is_correct']): ?>
+                            <div class="d-flex align-items-center text-success mt-2">
+                                <i class="bi bi-check-circle-fill fs-5 me-3"></i>
+                                <div class="fs-6">
+                                    <strong>Correct answer:</strong>&nbsp; <span class="text-dark"><?php echo htmlspecialchars($item['correct']); ?></span>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
                 <?php endforeach; ?>
-            </section>
+            </div>
 
-            <div class="quiz-actions">
-                <a href="quiz.php?level=<?php echo urlencode($level); ?>" class="btn">Retry</a>
-                <a href="index.php" class="btn btn-secondary">Back to modules</a>
+            <div class="d-flex justify-content-center gap-3 mt-5">
+                <a href="quiz.php?level=<?php echo urlencode($level); ?>" class="btn btn-primary px-5 rounded-pill shadow-sm">Retry Assessment</a>
+                <a href="index.php" class="btn btn-outline-secondary px-5 rounded-pill">Back to Modules</a>
             </div>
 
         <?php else: ?>
 
-            <form method="POST" action="quiz.php?level=<?php echo urlencode($level); ?>" class="quiz-form">
+            <form method="POST" action="quiz.php?level=<?php echo urlencode($level); ?>">
 
                 <?php foreach ($questions as $index => $question): ?>
-                    <fieldset class="quiz-block">
-                        <legend class="quiz-block__legend">
-                            <span class="quiz-block__num"><?php echo $index + 1; ?></span>
-                            <?php echo htmlspecialchars($question['text'] ?: 'Question ' . ($index + 1)); ?>
-                        </legend>
+                    <div class="card border-0 shadow-sm mb-5">
+                        <div class="card-body p-4 p-md-5">
+                            <h4 class="card-title mb-4 lh-base">
+                                <span class="badge bg-primary me-2"><?php echo $index + 1; ?></span>
+                                <?php echo htmlspecialchars($question['text'] ?: 'Question ' . ($index + 1)); ?>
+                            </h4>
 
-                        <div class="quiz-block__options">
+                            <div class="d-flex flex-column gap-3 mt-4">
                             <?php foreach ($question['options'] as $key => $label): ?>
                                 <?php if (trim($label) === '') continue; ?>
-                                <label class="quiz-choice">
-                                    <input type="radio" name="q<?php echo $index; ?>" value="<?php echo htmlspecialchars($key); ?>" required>
-                                    <span class="quiz-choice__box" aria-hidden="true"></span>
-                                    <span class="quiz-choice__text">
-                                        <span class="quiz-choice__key"><?php echo htmlspecialchars($key); ?></span>
+                                <label class="list-group-item rounded border p-3 d-flex align-items-center bg-light" style="cursor: pointer; transition: all 0.2s ease;" onmouseover="this.classList.add('bg-white', 'shadow-sm')" onmouseout="this.classList.remove('bg-white', 'shadow-sm')">
+                                    <input class="form-check-input me-3 mt-0 fs-5" type="radio" name="q<?php echo $index; ?>" value="<?php echo htmlspecialchars($key); ?>" required>
+                                    <div class="fs-6">
+                                        <strong class="me-2 text-primary"><?php echo htmlspecialchars($key); ?>)</strong>
                                         <?php echo htmlspecialchars($label); ?>
-                                    </span>
+                                    </div>
                                 </label>
                             <?php endforeach; ?>
+                            </div>
                         </div>
-                    </fieldset>
+                    </div>
                 <?php endforeach; ?>
 
-                <div class="quiz-actions">
-                    <button type="submit" class="btn">Submit assessment</button>
+                <div class="mt-5 text-center">
+                    <button type="submit" class="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-sm fw-bold">Submit Assessment <i class="bi bi-arrow-right ms-2"></i></button>
                 </div>
 
             </form>
 
         <?php endif; ?>
 
+            </div>
+        </div>
     </div>
 
 </main>

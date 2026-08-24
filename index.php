@@ -172,7 +172,7 @@
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
             <div class="learning-item position-relative">
               <div class="icon"><i class="bi bi-activity"></i></div>
-              <a href="#" class="stretched-link"><h3>Market Fundamentals</h3></a>
+              <a href="modules/learning/index.php#beginner" class="stretched-link"><h3>Market Fundamentals</h3></a>
               <p>Learn the core principles of the Nairobi Securities Exchange, including how to read charts, understand market caps, and analyze trends.</p>
             </div>
           </div>
@@ -180,7 +180,7 @@
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
             <div class="learning-item position-relative">
               <div class="icon"><i class="bi bi-broadcast"></i></div>
-              <a href="#" class="stretched-link"><h3>Portfolio Management</h3></a>
+              <a href="modules/learning/index.php#advanced" class="stretched-link"><h3>Portfolio Management</h3></a>
               <p>Discover strategies for building a diversified investment portfolio, managing risk, and maximizing long-term returns.</p>
             </div>
           </div>
@@ -188,7 +188,7 @@
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
             <div class="learning-item position-relative">
               <div class="icon"><i class="bi bi-bar-chart-line"></i></div>
-              <a href="#" class="stretched-link"><h3>Financial Analysis</h3></a>
+              <a href="modules/learning/index.php#intermediate" class="stretched-link"><h3>Financial Analysis</h3></a>
               <p>Master the art of reading financial statements, evaluating company health, and making data-driven investment decisions.</p>
             </div>
           </div>
@@ -597,7 +597,7 @@
         <div class="col-lg-2 col-md-3 footer-links">
           <h4>Resources</h4>
           <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Learning Materials</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="modules/learning/index.php">Learning Materials</a></li>
             <li><i class="bi bi-chevron-right"></i> <a href="#">Market Reports</a></li>
             <li><i class="bi bi-chevron-right"></i> <a href="#">Investment Guides</a></li>
             <li><i class="bi bi-chevron-right"></i> <a href="#">Research Papers</a></li>
