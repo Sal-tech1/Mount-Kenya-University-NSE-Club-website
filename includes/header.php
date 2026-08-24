@@ -3,6 +3,11 @@
 $docRoot = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
 $projectRoot = str_replace('\\', '/', dirname(__DIR__));
 $basePath = str_replace($docRoot, '', $projectRoot);
+
+$currentPath = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
+$navActive = function (string $segment) use ($currentPath): string {
+    return str_contains($currentPath, $segment) ? ' nav-link--active' : '';
+};
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,8 +24,8 @@ $basePath = str_replace($docRoot, '', $projectRoot);
     <p>Unlocking Infinite Possibilities in Financial Markets</p>
 </header>
 <nav>
-    <a href="<?php echo $basePath; ?>/index.php">Home</a>
-    <a href="<?php echo $basePath; ?>/modules/learning/index.php">Learning Hub</a>
-    <a href="<?php echo $basePath; ?>/modules/resources/index.php">Resource Centre</a>
-    <a href="<?php echo $basePath; ?>/modules/portal/login.php">Member Portal</a>
+    <a href="<?php echo $basePath; ?>/index.php" class="nav-link<?php echo $navActive('/index.php'); ?>">Home</a>
+    <a href="<?php echo $basePath; ?>/modules/learning/index.php" class="nav-link<?php echo $navActive('/modules/learning/'); ?>">Learning Hub</a>
+    <a href="<?php echo $basePath; ?>/modules/resources/index.php" class="nav-link<?php echo $navActive('/modules/resources/'); ?>">Resource Centre</a>
+    <a href="<?php echo $basePath; ?>/modules/portal/login.php" class="nav-link<?php echo $navActive('/modules/portal/'); ?>">Member Portal</a>
 </nav>
