@@ -131,19 +131,19 @@ try {
                 <label for="ticker_symbol"><strong>NSE Ticker Symbol</strong></label>
                 <select id="ticker_symbol" name="ticker_symbol" required>
                     <option value="">-- Select NSE Stock --</option>
-                    <option value="SCOM">SCOM — Safaricom Plc</option>
-                    <option value="EQTY">EQTY — Equity Group Holdings</option>
-                    <option value="KCB">KCB — KCB Group Plc</option>
-                    <option value="EABL">EABL — East African Breweries</option>
-                    <option value="COOP">COOP — Co-operative Bank</option>
-                    <option value="ABSA">ABSA — Absa Bank Kenya</option>
-                    <option value="BAMB">BAMB — Bamburi Cement</option>
+                    <option value="SCOM">SCOM - Safaricom Plc</option>
+                    <option value="EQTY">EQTY - Equity Group Holdings</option>
+                    <option value="KCB">KCB - KCB Group Plc</option>
+                    <option value="EABL">EABL - East African Breweries</option>
+                    <option value="COOP">COOP - Co-operative Bank</option>
+                    <option value="ABSA">ABSA - Absa Bank Kenya</option>
+                    <option value="BAMB">BAMB - Bamburi Cement</option>
                 </select>
 
                 <label for="trade_type"><strong>Action</strong></label>
                 <select id="trade_type" name="trade_type" required>
-                    <option value="BUY">BUY — simulated purchase</option>
-                    <option value="SELL">SELL — close/trim position</option>
+                    <option value="BUY">BUY - simulated purchase</option>
+                    <option value="SELL">SELL - close/trim position</option>
                 </select>
 
                 <label for="quantity"><strong>Number of Shares</strong></label>

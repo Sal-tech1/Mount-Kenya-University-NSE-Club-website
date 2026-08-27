@@ -1,5 +1,4 @@
 <?php
-
 $resources = [
     [
         'title'       => 'The Intelligent Investor (Study Edition)',
@@ -20,7 +19,7 @@ $resources = [
         'size'        => '312 MB',
     ],
     [
-        'title'       => 'AGM Minutes — March 2026',
+        'title'       => 'AGM Minutes - March 2026',
         'category'    => 'minutes',
         'category_label' => 'Meeting Minutes',
         'description' => 'Official record of resolutions, attendance, and committee reports from the club\'s Annual General Meeting.',
@@ -29,7 +28,7 @@ $resources = [
         'size'        => '186 KB',
     ],
     [
-        'title'       => 'Sector Rotation Strategy — Club Pitch Deck',
+        'title'       => 'Sector Rotation Strategy - Club Pitch Deck',
         'category'    => 'presentations',
         'category_label' => 'Club Presentations',
         'description' => 'Slides from the student portfolio team on rotating exposure across banking, telecom, and energy counters.',
@@ -38,7 +37,7 @@ $resources = [
         'size'        => '5.8 MB',
     ],
     [
-        'title'       => 'Safaricom PLC — FY2025 Financial Statements',
+        'title'       => 'Safaricom PLC - FY2025 Financial Statements',
         'category'    => 'financials',
         'category_label' => 'Financial Statements',
         'description' => 'Audited annual financial statements including balance sheet, income statement, and cash flow notes.',
@@ -56,7 +55,7 @@ $resources = [
         'size'        => '1.4 MB',
     ],
     [
-        'title'       => 'NSE Monthly Market Statistics — July 2026',
+        'title'       => 'NSE Monthly Market Statistics - July 2026',
         'category'    => 'market-reports',
         'category_label' => 'Market Reports',
         'description' => 'Turnover, market capitalisation, and index performance summary published by the exchange for the month.',
@@ -137,38 +136,12 @@ $typeMeta = [
     'doc'   => ['icon' => 'bi-file-earmark-word',   'label' => 'DOCX'],
     'xls'   => ['icon' => 'bi-file-earmark-excel',  'label' => 'XLSX'],
 ];
+
+require_once __DIR__ . '/../../includes/header.php'; 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Resource Centre | Mount Kenya University NSE Club</title>
-
-<!-- Bootstrap 5 -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<!-- Bootstrap Icons -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-
-<!-- Shared theme + page styles (save at assets/css/) -->
-<link rel="stylesheet" href="../../assets/css/nse-theme.css">
-<link rel="stylesheet" href="../../assets/css/resources.css">
-</head>
-<body>
-
-
-<header class="nse-topband py-5">
-  <div class="container">
-    <div class="eyebrow mb-2"><i class="bi bi-mortarboard"></i>&nbsp; MKU NSE CLUB</div>
-    <h1 class="display-6 mb-2">Resource Centre</h1>
-    <p class="mb-0 col-lg-7">A growing digital library of investment books, research, market reports, and club
-      recordings — curated for members building their market knowledge.</p>
-  </div>
-</header>
 
 <main class="container py-5">
 
-  <!-- Search + category filters -->
   <div class="row g-3 align-items-center mb-4">
     <div class="col-lg-5">
       <div class="resource-search d-flex align-items-center px-3 py-2">
@@ -189,7 +162,6 @@ $typeMeta = [
     <?php endforeach; ?>
   </div>
 
-  <!-- Resource grid -->
   <div class="row g-4">
     <?php foreach ($resources as $r):
       $meta = $typeMeta[$r['type']];
@@ -232,7 +204,6 @@ $typeMeta = [
 
 </main>
 
-<!-- Preview modal -->
 <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -247,5 +218,5 @@ $typeMeta = [
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../../assets/js/resources.js"></script>
-</body>
-</html>
+
+<?php require_once __DIR__ . '/../../includes/footer.php'; ?>
