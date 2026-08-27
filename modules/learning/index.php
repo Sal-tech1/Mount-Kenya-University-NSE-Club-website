@@ -1,86 +1,119 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Security Check
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../portal/login.php");
+    exit;
+}
+
 require_once __DIR__ . '/../../includes/header.php';
+require_once __DIR__ . '/../../includes/db.php';
 
-$content = require __DIR__ . '/content.php';
-$tiers   = $content['tiers'];
-$page    = $content['page'];
+// Fetch the user's current learning tier from the database
+$stmt = $pdo->prepare("SELECT learning_tier FROM users WHERE user_id = :uid");
+$stmt->execute([':uid' => $_SESSION['user_id']]);
+$userTier = $stmt->fetchColumn() ?: 'BEGINNER';
 
-$totalLessons = 0;
-foreach ($tiers as $tier) {
-    $totalLessons += count($tier['lessons']);
+// Define the hierarchy to compare levels mathematically
+$tierLevels = [
+    'BEGINNER'     => 1,
+    'INTERMEDIATE' => 2,
+    'ADVANCED'     => 3,
+    'GRADUATE'     => 4
+];
+
+$currentLevel = $tierLevels[$userTier] ?? 1;
+
+// Helper function to determine if a section should be unlocked
+function canAccess($moduleTier, $currentLevel, $tierLevels) {
+    return $currentLevel >= $tierLevels[$moduleTier];
 }
 ?>
 
-<main class="main">
-
-    <!-- Hero Section -->
-    <section id="hero" class="hero section light-background">
-      <div class="container">
-        <div class="row gy-4">
-          <div class="col-lg-8 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="zoom-out">
-            <h1><?php echo htmlspecialchars($page['title']); ?></h1>
-            <p><?php echo htmlspecialchars($page['subtitle']); ?></p>
-            <div class="d-flex mt-4 gap-4 flex-wrap">
-               <div class="d-flex align-items-center gap-2"><i class="bi bi-journal-richtext fs-4 text-primary"></i> <strong><?php echo count($tiers); ?></strong> Modules</div>
-               <div class="d-flex align-items-center gap-2"><i class="bi bi-book fs-4 text-primary"></i> <strong><?php echo $totalLessons; ?></strong> Lessons</div>
-               <div class="d-flex align-items-center gap-2"><i class="bi bi-ui-checks fs-4 text-primary"></i> <strong><?php echo count($tiers); ?></strong> Assessments</div>
+<main class="learning">
+    <!-- Hub Banner -->
+    <header class="learning-banner">
+        <div class="container learning-banner__inner">
+            <div>
+                <h1 class="learning-banner__title">Learning Hub</h1>
+                <p class="learning-banner__subtitle">Master the financial markets through our structured curriculum.</p>
             </div>
-          </div>
-        </div>
-      </div>
-    </section><!-- /Hero Section -->
-
-    <?php $trackIndex = 1; ?>
-    <?php foreach ($tiers as $slug => $tier): ?>
-    <section id="<?php echo htmlspecialchars($slug); ?>" class="section <?php echo $trackIndex % 2 == 0 ? 'light-background' : ''; ?>">
-      
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Module <?php echo str_pad((string) $trackIndex, 2, '0', STR_PAD_LEFT); ?></h2>
-        <p><span><?php echo htmlspecialchars($tier['label']); ?></span> <span class="description-title"><?php echo htmlspecialchars($tier['subtitle']); ?></span></p>
-        <?php if (!empty($tier['description'])): ?>
-            <p class="mt-2 text-muted"><?php echo htmlspecialchars($tier['description']); ?></p>
-        <?php endif; ?>
-      </div>
-
-      <div class="container">
-        <div class="row gy-4">
-            <?php foreach ($tier['lessons'] as $i => $lesson): ?>
-            <?php
-                $lessonNum   = $i + 1;
-                $lessonTitle = trim($lesson['title'] ?? '');
-                $lessonSummary = trim($lesson['summary'] ?? '');
-                if ($lessonTitle === '') $lessonTitle = 'Lesson ' . $lessonNum;
-            ?>
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="<?php echo $lessonNum * 100; ?>">
-                <div class="section-card event-card h-100 d-flex flex-column">
-                    <div class="event-date-badge">
-                        <span class="day"><?php echo $lessonNum; ?></span>
-                    </div>
-                    <h4><?php echo htmlspecialchars($lessonTitle); ?></h4>
-                    <?php if ($lessonSummary !== ''): ?>
-                    <p class="flex-grow-1"><?php echo htmlspecialchars($lessonSummary); ?></p>
-                    <?php else: ?>
-                    <p class="flex-grow-1">Learn the fundamental concepts of this lesson.</p>
-                    <?php endif; ?>
-                    <div class="mt-auto">
-                        <a href="#" class="btn btn-secondary mt-3">Start Lesson</a>
-                    </div>
+            <dl class="learning-banner__stats">
+                <div class="learning-banner__stat">
+                    <dt>Current Rank</dt>
+                    <dd><?php echo htmlspecialchars($userTier); ?></dd>
                 </div>
-            </div>
-            <?php endforeach; ?>
+            </dl>
         </div>
+    </header>
 
-        <div class="mt-5 text-center" data-aos="fade-up" data-aos-delay="300">
-            <a href="quiz.php?level=<?php echo urlencode($slug); ?>" class="btn btn-primary btn-lg px-5 rounded-pill shadow-sm">
-                Take <?php echo htmlspecialchars($tier['label']); ?> Assessment
-            </a>
-        </div>
+    <div class="container learning-body learning-body--narrow">
+        
+        <!-- BEGINNER MODULE (Always Unlocked) -->
+        <section class="track track--green">
+            <header class="track__header">
+                <div class="track__index">01</div>
+                <div>
+                    <h2 class="track__title">Beginner</h2>
+                    <div class="track__subtitle">Market Fundamentals</div>
+                    <p class="track__description">Learn the basics of equities, bonds, and how the Nairobi Securities Exchange operates.</p>
+                </div>
+            </header>
+            <footer class="track__footer">
+                <a href="quiz.php?level=beginner" class="track__quiz-link">
+                    Take Assessment <span class="track__quiz-arrow"></span>
+                </a>
+            </footer>
+        </section>
 
-      </div>
-    </section>
-    <?php $trackIndex++; ?>
-    <?php endforeach; ?>
+        <!-- INTERMEDIATE MODULE -->
+        <?php $hasInt = canAccess('INTERMEDIATE', $currentLevel, $tierLevels); ?>
+        <section class="track track--blue" style="<?php echo $hasInt ? '' : 'opacity: 0.6; filter: grayscale(100%); pointer-events: none;'; ?>">
+            <header class="track__header">
+                <div class="track__index">02</div>
+                <div>
+                    <h2 class="track__title">Intermediate <?php if(!$hasInt) echo '<i class="bi bi-lock-fill text-danger" style="font-size: 1.2rem; margin-left: 8px;"></i>'; ?></h2>
+                    <div class="track__subtitle">Portfolio Management</div>
+                    <p class="track__description">Dive into fundamental analysis, reading financial statements, and building a balanced portfolio.</p>
+                </div>
+            </header>
+            <footer class="track__footer">
+                <?php if($hasInt): ?>
+                <a href="quiz.php?level=intermediate" class="track__quiz-link">
+                    Take Assessment <span class="track__quiz-arrow"></span>
+                </a>
+                <?php else: ?>
+                <span style="color: var(--text-muted); font-weight: 600;">Score 80% in Beginner to unlock</span>
+                <?php endif; ?>
+            </footer>
+        </section>
 
+        <!-- ADVANCED MODULE -->
+        <?php $hasAdv = canAccess('ADVANCED', $currentLevel, $tierLevels); ?>
+        <section class="track track--gold" style="<?php echo $hasAdv ? '' : 'opacity: 0.6; filter: grayscale(100%); pointer-events: none;'; ?>">
+            <header class="track__header">
+                <div class="track__index">03</div>
+                <div>
+                    <h2 class="track__title">Advanced <?php if(!$hasAdv) echo '<i class="bi bi-lock-fill text-danger" style="font-size: 1.2rem; margin-left: 8px;"></i>'; ?></h2>
+                    <div class="track__subtitle">Technical Analysis & Valuation</div>
+                    <p class="track__description">Master chart patterns, advanced valuation models, and algorithmic trading concepts.</p>
+                </div>
+            </header>
+            <footer class="track__footer">
+                <?php if($hasAdv): ?>
+                <a href="quiz.php?level=advanced" class="track__quiz-link">
+                    Take Assessment <span class="track__quiz-arrow"></span>
+                </a>
+                <?php else: ?>
+                <span style="color: var(--text-muted); font-weight: 600;">Score 80% in Intermediate to unlock</span>
+                <?php endif; ?>
+            </footer>
+        </section>
+
+    </div>
 </main>
 
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>
