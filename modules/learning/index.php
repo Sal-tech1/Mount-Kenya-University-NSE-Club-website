@@ -11,84 +11,75 @@ foreach ($tiers as $tier) {
 }
 ?>
 
-<main class="learning">
+<main class="main">
 
-    <section class="learning-banner">
-        <div class="container learning-banner__inner">
-            <div class="learning-banner__copy">
-                <h1 class="learning-banner__title"><?php echo htmlspecialchars($page['title']); ?></h1>
-                <p class="learning-banner__subtitle"><?php echo htmlspecialchars($page['subtitle']); ?></p>
+    <!-- Hero Section -->
+    <section id="hero" class="hero section light-background">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-8 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="zoom-out">
+            <h1><?php echo htmlspecialchars($page['title']); ?></h1>
+            <p><?php echo htmlspecialchars($page['subtitle']); ?></p>
+            <div class="d-flex mt-4 gap-4 flex-wrap">
+               <div class="d-flex align-items-center gap-2"><i class="bi bi-journal-richtext fs-4 text-primary"></i> <strong><?php echo count($tiers); ?></strong> Modules</div>
+               <div class="d-flex align-items-center gap-2"><i class="bi bi-book fs-4 text-primary"></i> <strong><?php echo $totalLessons; ?></strong> Lessons</div>
+               <div class="d-flex align-items-center gap-2"><i class="bi bi-ui-checks fs-4 text-primary"></i> <strong><?php echo count($tiers); ?></strong> Assessments</div>
             </div>
-            <dl class="learning-banner__stats">
-                <div class="learning-banner__stat">
-                    <dt>Modules</dt>
-                    <dd><?php echo count($tiers); ?></dd>
-                </div>
-                <div class="learning-banner__stat">
-                    <dt>Lessons</dt>
-                    <dd><?php echo $totalLessons; ?></dd>
-                </div>
-                <div class="learning-banner__stat">
-                    <dt>Assessments</dt>
-                    <dd><?php echo count($tiers); ?></dd>
-                </div>
-            </dl>
+          </div>
         </div>
-    </section>
+      </div>
+    </section><!-- /Hero Section -->
 
-    <div class="container learning-body">
+    <?php $trackIndex = 1; ?>
+    <?php foreach ($tiers as $slug => $tier): ?>
+    <section id="<?php echo htmlspecialchars($slug); ?>" class="section <?php echo $trackIndex % 2 == 0 ? 'light-background' : ''; ?>">
+      
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Module <?php echo str_pad((string) $trackIndex, 2, '0', STR_PAD_LEFT); ?></h2>
+        <p><span><?php echo htmlspecialchars($tier['label']); ?></span> <span class="description-title"><?php echo htmlspecialchars($tier['subtitle']); ?></span></p>
+        <?php if (!empty($tier['description'])): ?>
+            <p class="mt-2 text-muted"><?php echo htmlspecialchars($tier['description']); ?></p>
+        <?php endif; ?>
+      </div>
 
-        <?php $trackIndex = 1; ?>
-        <?php foreach ($tiers as $slug => $tier): ?>
-            <section class="track <?php echo htmlspecialchars($tier['accent']); ?>" id="<?php echo htmlspecialchars($slug); ?>">
-
-                <header class="track__header">
-                    <span class="track__index"><?php echo str_pad((string) $trackIndex, 2, '0', STR_PAD_LEFT); ?></span>
-                    <div class="track__intro">
-                        <h2 class="track__title"><?php echo htmlspecialchars($tier['label']); ?></h2>
-                        <p class="track__subtitle"><?php echo htmlspecialchars($tier['subtitle']); ?></p>
-                        <?php if (!empty($tier['description'])): ?>
-                            <p class="track__description"><?php echo htmlspecialchars($tier['description']); ?></p>
-                        <?php endif; ?>
+      <div class="container">
+        <div class="row gy-4">
+            <?php foreach ($tier['lessons'] as $i => $lesson): ?>
+            <?php
+                $lessonNum   = $i + 1;
+                $lessonTitle = trim($lesson['title'] ?? '');
+                $lessonSummary = trim($lesson['summary'] ?? '');
+                if ($lessonTitle === '') $lessonTitle = 'Lesson ' . $lessonNum;
+            ?>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="<?php echo $lessonNum * 100; ?>">
+                <div class="section-card event-card h-100 d-flex flex-column">
+                    <div class="event-date-badge">
+                        <span class="day"><?php echo $lessonNum; ?></span>
                     </div>
-                </header>
-
-                <div class="track__lessons">
-                    <?php foreach ($tier['lessons'] as $i => $lesson): ?>
-                        <?php
-                        $lessonNum   = $i + 1;
-                        $lessonTitle = trim($lesson['title'] ?? '');
-                        $lessonSummary = trim($lesson['summary'] ?? '');
-                        ?>
-                        <article class="lesson-row">
-                            <span class="lesson-row__num"><?php echo $lessonNum; ?></span>
-                            <div class="lesson-row__body">
-                                <h3 class="lesson-row__title">
-                                    <?php echo $lessonTitle !== '' ? htmlspecialchars($lessonTitle) : 'Lesson ' . $lessonNum; ?>
-                                </h3>
-                                <?php if ($lessonSummary !== ''): ?>
-                                    <p class="lesson-row__summary"><?php echo htmlspecialchars($lessonSummary); ?></p>
-                                <?php endif; ?>
-                                <div class="lesson-row__content">
-                                    <!-- Add lesson HTML or paragraphs here per tier, or extend content.php -->
-                                </div>
-                            </div>
-                        </article>
-                    <?php endforeach; ?>
+                    <h4><?php echo htmlspecialchars($lessonTitle); ?></h4>
+                    <?php if ($lessonSummary !== ''): ?>
+                    <p class="flex-grow-1"><?php echo htmlspecialchars($lessonSummary); ?></p>
+                    <?php else: ?>
+                    <p class="flex-grow-1">Learn the fundamental concepts of this lesson.</p>
+                    <?php endif; ?>
+                    <div class="mt-auto">
+                        <a href="#" class="btn btn-secondary mt-3">Start Lesson</a>
+                    </div>
                 </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
 
-                <footer class="track__footer">
-                    <a href="quiz.php?level=<?php echo urlencode($slug); ?>" class="track__quiz-link">
-                        <?php echo htmlspecialchars($tier['label']); ?> assessment
-                        <span class="track__quiz-arrow" aria-hidden="true"></span>
-                    </a>
-                </footer>
+        <div class="mt-5 text-center" data-aos="fade-up" data-aos-delay="300">
+            <a href="quiz.php?level=<?php echo urlencode($slug); ?>" class="btn btn-primary btn-lg px-5 rounded-pill shadow-sm">
+                Take <?php echo htmlspecialchars($tier['label']); ?> Assessment
+            </a>
+        </div>
 
-            </section>
-            <?php $trackIndex++; ?>
-        <?php endforeach; ?>
-
-    </div>
+      </div>
+    </section>
+    <?php $trackIndex++; ?>
+    <?php endforeach; ?>
 
 </main>
 
