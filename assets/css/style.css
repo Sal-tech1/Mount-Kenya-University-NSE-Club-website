@@ -1353,32 +1353,102 @@ body > nav a.nav-link--active {
     margin-bottom: var(--space-lg);
 }
 
-/* Responsive */
-@media (max-width: 640px) {
+/* Responsive - Mobile Optimization */
+@media (max-width: 768px) {
+    /* Learning Banner */
+    .learning-banner {
+        padding: var(--space-xl) 0;
+        text-align: center;
+    }
+
     .learning-banner__inner {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        gap: var(--space-lg);
+    }
+
+    .learning-banner__title {
+        font-size: 2rem;
+    }
+
+    .learning-banner__subtitle {
+        margin: 0 auto;
+        font-size: 1rem;
     }
 
     .learning-banner__stats {
         width: 100%;
-        justify-content: space-between;
+        justify-content: center;
+        gap: var(--space-xxl);
+        margin-top: var(--space-sm);
+        padding-top: var(--space-md);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
+    /* Track Modules */
     .track__header {
+        flex-direction: column;
+        align-items: flex-start;
         padding: var(--space-lg);
+        gap: var(--space-sm);
+        position: relative;
+    }
+
+    .track__index {
+        position: absolute;
+        top: var(--space-md);
+        right: var(--space-lg);
+        font-size: 3rem;
+        opacity: 0.3;
+    }
+
+    .track__title {
+        font-size: 1.25rem;
     }
 
     .track__lessons {
-        padding: 0 var(--space-lg);
+        padding: 0 var(--space-md);
     }
 
+    /* Lessons */
+    .lesson-row {
+        gap: var(--space-md);
+        padding: var(--space-md) 0;
+    }
+
+    .lesson-row__num {
+        width: 24px;
+        height: 24px;
+        font-size: 0.75rem;
+    }
+
+    .lesson-row__title {
+        font-size: 0.95rem;
+    }
+
+    /* Footer */
     .track__footer {
         padding: var(--space-md) var(--space-lg);
+        text-align: center;
+        background: #F8F9FA;
     }
 
+    .track__quiz-link {
+        width: 100%;
+        justify-content: center;
+        padding: var(--space-sm) 0;
+    }
+
+    /* Quiz Panel */
     .quiz-score-panel {
         flex-direction: column;
         text-align: center;
+        padding: var(--space-xl) var(--space-lg);
+    }
+
+    /* Touch Targets for Mobile Accessibility */
+    .quiz-option {
+        padding: var(--space-md) var(--space-md);
+        font-size: 0.95rem;
     }
 }
