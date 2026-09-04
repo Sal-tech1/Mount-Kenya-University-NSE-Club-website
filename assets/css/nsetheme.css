@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
 
 :root{
- 
   --navy-950:#071427;
   --navy-900:#0B1F38;
   --navy-800:#0F2A4A;
@@ -72,7 +71,6 @@ h1,h2,h3,h4,.font-display{
   font-weight:800;
 }
 .nse-topband p{ color:var(--navy-100); opacity:.85; }
-
 
 .nse-card{
   background:var(--surface);

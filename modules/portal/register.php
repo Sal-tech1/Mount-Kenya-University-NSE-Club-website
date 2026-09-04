@@ -32,10 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Secure password hashing
                 $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-                // Insert user into the users table
+                // Insert user into the users table with default USER role
                 $insertStmt = $pdo->prepare("
                     INSERT INTO users (full_name, email, password_hash, user_role) 
-                    VALUES (:full_name, :email, :password_hash, 'MEMBER')
+                    VALUES (:full_name, :email, :password_hash, 'USER')
                 ");
                 $insertStmt->execute([
                     ':full_name'     => $fullName,

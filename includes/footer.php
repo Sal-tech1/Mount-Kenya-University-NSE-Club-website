@@ -89,9 +89,7 @@ $basePath = str_replace($docRoot, '', $projectRoot);
   <script src="<?php echo $basePath; ?>/assets/vendor/php-email-form/validate.js"></script>
   <script src="<?php echo $basePath; ?>/assets/vendor/aos/aos.js"></script>
   <script src="<?php echo $basePath; ?>/assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="<?php echo $basePath; ?>/assets/vendor/waypoints/noframework.waypoints.js"></script>
   <script src="<?php echo $basePath; ?>/assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="<?php echo $basePath; ?>/assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="<?php echo $basePath; ?>/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
   <script src="<?php echo $basePath; ?>/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 

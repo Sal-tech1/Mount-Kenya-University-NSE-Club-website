@@ -69,22 +69,10 @@ $quickStats = [
     ['label' => 'Bond Listings', 'value' => '78', 'icon' => 'bi-file-earmark-ruled'],
     ['label' => 'ETFs', 'value' => '5', 'icon' => 'bi-collection'],
 ];
+
+$custom_css = ['nse-theme.css', 'dashboard.css'];
+require_once __DIR__ . '/../../includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Market &amp; Economic Dashboard | Mount Kenya University NSE Club</title>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-
-
-<link rel="stylesheet" href="../../assets/css/nse-theme.css">
-<link rel="stylesheet" href="../../assets/css/dashboard.css">
-</head>
-<body>
 
 <header class="nse-topband py-4">
   <div class="container">
@@ -245,8 +233,7 @@ $quickStats = [
 
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <script src="../../assets/js/dashboard.js"></script>
-</body>
-</html>
+
+<?php require_once __DIR__ . '/../../includes/footer.php'; ?>

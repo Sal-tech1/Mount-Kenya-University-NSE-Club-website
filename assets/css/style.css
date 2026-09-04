@@ -102,7 +102,6 @@ a {
   text-decoration: none;
   transition: 0.3s;
 }
-
 a:hover {
   color: color-mix(in srgb, var(--accent-color), transparent 25%);
   text-decoration: none;
@@ -204,7 +203,6 @@ form input[type="text"], form input[type="email"], form input[type="number"], fo
     background-color: #FFFFFF;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
-
 form input:focus {
     outline: none;
     border-color: var(--mku-royal-blue);
@@ -272,7 +270,7 @@ form input:focus {
 .header .branding {
     background-color: var(--background-color); 
     min-height: 60px; 
-    padding: 10px 0; /* FIXED: was 10px0 */
+    padding: 10px 0;
 }
 
 .header .logo { 
@@ -401,8 +399,7 @@ form input:focus {
       justify-content: space-between;
       white-space: nowrap;
       transition: 0.3s; 
-  }
-  .navmenu a i, .navmenu a:focus i { 
+  }  .navmenu a i, .navmenu a:focus i { 
       font-size: 12px;
       line-height: 0;
       margin-left: 5px; 
@@ -492,7 +489,7 @@ section, .section { color: var(--default-color); background-color: var(--backgro
 @media (max-width: 1199px) { section, .section { scroll-margin-top: 60px; } }
 
 .section-title { text-align: center; padding-bottom: 60px; position: relative; }
-.section-title h2 { font-size: 13px; letter-spacing: 1px; font-weight: 700; padding: 8px 20px; margin: 0; background: color-mix(in srgb, var(--accent-color), transparent 90%); color: var(--accent-color); display: inline-block; text-transform: uppercase; border-radius: 50px; font-family: var(--default-font); }
+.section-title h2 { font-size: 13px; letter-spacing: 1px; font-weight: 700; padding: 8px 20px; margin: 0; background: #EEF3F8; color: var(--mku-royal-blue); display: inline-block; text-transform: uppercase; border-radius: 50px; font-family: var(--default-font); }
 .section-title p { color: var(--heading-color); margin: 10px 0 0 0; font-size: 32px; font-weight: 700; font-family: var(--heading-font); }
 .section-title p .description-title { color: var(--accent-color); }
 
@@ -577,11 +574,11 @@ section, .section { color: var(--default-color); background-color: var(--backgro
 .faq .faq-container .faq-item .faq-content p { margin-bottom: 0; overflow: hidden; }
 .faq .faq-container .faq-item .faq-toggle { position: absolute; top: 20px; right: 20px; font-size: 16px; line-height: 0; transition: 0.3s; cursor: pointer; }
 .faq .faq-container .faq-item .faq-toggle:hover { color: var(--accent-color); }
-.faq .faq-container .faq-active { background-color: var(--accent-color); border-color: var(--accent-color); color: var(--contrast-color); }
-.faq .faq-container .faq-active h3 { color: var(--contrast-color); }
-.faq .faq-container .faq-active h3:hover { color: var(--contrast-color); }
+.faq .faq-container .faq-active { background-color: var(--mku-royal-blue); border-color: var(--mku-royal-blue); color: #ffffff; }
+.faq .faq-container .faq-active h3 { color: var(--mku-gold); }
+.faq .faq-container .faq-active h3:hover { color: var(--mku-gold); }
 .faq .faq-container .faq-active .faq-content { grid-template-rows: 1fr; visibility: visible; opacity: 1; padding-top: 10px; }
-.faq .faq-container .faq-active .faq-toggle { transform: rotate(90deg); color: var(--accent-color); }
+.faq .faq-container .faq-active .faq-toggle { transform: rotate(90deg); color: var(--mku-gold); }
 
 /* Contact Section */
 .contact .info-wrap { background-color: var(--surface-color); box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); padding: 30px; }
@@ -658,10 +655,9 @@ section, .section { color: var(--default-color); background-color: var(--backgro
   margin-bottom: var(--space-sm);
   color: var(--heading-color); 
 }
-
 .event-card p {
   color: var(--text-muted);
-  font-size: 0.95rem; /* FIXED: removed invalid font-size: 700 and 26px */
+  font-size: 0.95rem;
   margin-bottom: var(--space-lg);
   flex-grow: 1; 
 }
@@ -742,10 +738,6 @@ section, .section { color: var(--default-color); background-color: var(--backgro
         margin-bottom: var(--space-sm);
     }
 }
-
-
-
-
 
 /* ===================================== */
 /* other page css go below this section. 
@@ -852,7 +844,6 @@ body > nav a.nav-link--active {
     max-width: 42rem;
     line-height: 1.55;
 }
-
 .learning-banner__stats {
     display: flex;
     gap: var(--space-xl);
@@ -946,7 +937,6 @@ body > nav a.nav-link--active {
 .track__lessons {
     padding: 0 var(--space-xl);
 }
-
 .lesson-row {
     display: flex;
     gap: var(--space-lg);
@@ -996,7 +986,6 @@ body > nav a.nav-link--active {
     line-height: 1.65;
     color: var(--dark-navy);
 }
-
 /* Track footer */
 .track__footer {
     padding: var(--space-lg) var(--space-xl);
@@ -1092,7 +1081,6 @@ body > nav a.nav-link--active {
     line-height: 1.55;
     margin-bottom: var(--space-sm);
 }
-
 .quiz-header__count {
     font-size: 0.8rem;
     font-weight: 600;

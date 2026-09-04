@@ -1,5 +1,24 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Enforce authentication and official member or admin status
+if (!isset($_SESSION['user_id']) || !in_array($_SESSION['user_role'] ?? 'USER', ['MEMBER', 'ADMIN'])) {
+    header("Location: ../portal/login.php");
+    exit;
+}
+
 $resources = [
+    [
+        'title'       => 'NSE MKU Club Constitution 2026',
+        'category'    => 'constitution',
+        'category_label' => 'Club Constitution',
+        'description' => 'The official governing document outlining member guidelines, leadership roles, and general objectives.',
+        'date'        => '2026-01-15',
+        'type'        => 'pdf',
+        'size'        => '850 KB',
+    ],
     [
         'title'       => 'The Intelligent Investor (Study Edition)',
         'category'    => 'books',
@@ -112,6 +131,7 @@ $resources = [
 
 $categories = [
     'all'            => 'All Resources',
+    'constitution'   => 'Club Constitution',
     'books'          => 'Investment Books',
     'webinars'       => 'Recorded Webinars',
     'minutes'        => 'Meeting Minutes',
@@ -137,6 +157,8 @@ $typeMeta = [
     'xls'   => ['icon' => 'bi-file-earmark-excel',  'label' => 'XLSX'],
 ];
 
+// Load the isolated CSS file for this specific page
+$custom_css = ['resources.css'];
 require_once __DIR__ . '/../../includes/header.php'; 
 ?>
 

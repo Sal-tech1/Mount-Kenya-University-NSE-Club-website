@@ -32,10 +32,22 @@ $navActive = function (string $segment) use ($currentPath): string {
   <link href="<?php echo $basePath; ?>/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="<?php echo $basePath; ?>/assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="<?php echo $basePath; ?>/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="<?php echo $basePath; ?>/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Main CSS File -->
   <link href="<?php echo $basePath; ?>/assets/css/style.css" rel="stylesheet">
+
+  <?php
+  // Dynamically load module-specific CSS to support separated stylesheets
+  if (isset($custom_css)) {
+      if (is_array($custom_css)) {
+          foreach ($custom_css as $css_file) {
+              echo '<link href="' . $basePath . '/assets/css/' . htmlspecialchars($css_file) . '" rel="stylesheet">' . "\n  ";
+          }
+      } elseif (is_string($custom_css) && !empty($custom_css)) {
+          echo '<link href="' . $basePath . '/assets/css/' . htmlspecialchars($custom_css) . '" rel="stylesheet">' . "\n  ";
+      }
+  }
+  ?>
 </head>
 
 <body class="starter-page-page">
@@ -44,20 +56,25 @@ $navActive = function (string $segment) use ($currentPath): string {
     <div class="branding d-flex align-items-center">
       <div class="container position-relative d-flex align-items-center justify-content-between">
         <a href="<?php echo $basePath; ?>/index.php" class="logo d-flex align-items-center">
+          <img src="<?php echo $basePath; ?>/assets/img/logo.png" alt="NSE MKU Logo" style="max-height: 40px; margin-right: 10px;">
           <h1 class="sitename">NSE Club MKU</h1>
         </a>
 
         <nav id="navmenu" class="navmenu">
           <ul>
             <li><a href="<?php echo $basePath; ?>/index.php" class="<?php echo $navActive('/index.php'); ?>">Home</a></li>
+            <li><a href="<?php echo $basePath; ?>/index.php#about">About</a></li>
             <li><a href="<?php echo $basePath; ?>/modules/learning/index.php" class="<?php echo $navActive('/modules/learning/'); ?>">Learning</a></li>
             <li><a href="<?php echo $basePath; ?>/modules/resources/index.php" class="<?php echo $navActive('/modules/resources/'); ?>">Resources</a></li>
+            <li><a href="<?php echo $basePath; ?>/modules/dashboards/index.php" class="<?php echo $navActive('/modules/dashboards/'); ?>">Markets</a></li>
+            <li><a href="<?php echo $basePath; ?>/index.php#team">Leadership</a></li>
             <li class="dropdown"><a href="#" class="<?php echo $navActive('/modules/portal/'); ?>"><span>Portal</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
                 <li><a href="<?php echo $basePath; ?>/modules/portal/login.php">Sign In</a></li>
                 <li><a href="<?php echo $basePath; ?>/modules/portal/register.php">Sign Up</a></li>
               </ul>
             </li>
+            <li><a href="<?php echo $basePath; ?>/index.php#contact">Contact</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>

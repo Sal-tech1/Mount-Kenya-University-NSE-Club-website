@@ -1,5 +1,7 @@
 <?php
 // NSE MKU Investment Club — Public Homepage
+session_start();
+$custom_css = ['nsetheme.css', 'dashboard.css'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,10 +26,18 @@
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  
+  <?php
+  // Dynamically load module-specific CSS to support separated stylesheets
+  if (isset($custom_css) && is_array($custom_css)) {
+      foreach ($custom_css as $css_file) {
+          echo '<link href="assets/css/' . htmlspecialchars($css_file) . '" rel="stylesheet">' . "\n  ";
+      }
+  }
+  ?>
 </head>
 
 <body class="index-page">
@@ -35,21 +45,22 @@
   <header id="header" class="header sticky-top">
     <div class="branding d-flex align-items-center">
       <div class="container position-relative d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center">
+        <a href="index.php" class="logo d-flex align-items-center">
+          <img src="assets/img/logo.png" alt="NSE MKU Logo" style="max-height: 40px; margin-right: 10px;">
           <h1 class="sitename">NSE Club MKU</h1>
         </a>
-
         <nav id="navmenu" class="navmenu">
           <ul>
             <li><a href="#hero" class="active">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#learning">Learning</a></li>
+            <li><a href="modules/resources/index.php">Resources</a></li>
             <li><a href="#portfolio">Markets</a></li>
             <li><a href="#team">Leadership</a></li>
             <li class="dropdown"><a href="#"><span>Portal</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
-                <li><a href="#">Sign In</a></li>
-                <li><a href="#">Sign Up</a></li>
+                <li><a href="modules/portal/login.php">Sign In</a></li>
+                <li><a href="modules/portal/register.php">Sign Up</a></li>
               </ul>
             </li>
             <li><a href="#contact">Contact</a></li>
@@ -86,8 +97,7 @@
 
       <div class="container">
         <div class="row gy-3">
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <img src="assets/img/about.jpg" alt="MKU NSE Club Members" class="img-fluid rounded">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">            <img src="assets/img/about.jpg" alt="MKU NSE Club Members" class="img-fluid rounded">
           </div>
 
           <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
@@ -186,8 +196,7 @@
           </div>
 
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="learning-item position-relative">
-              <div class="icon"><i class="bi bi-bar-chart-line"></i></div>
+            <div class="learning-item position-relative">              <div class="icon"><i class="bi bi-bar-chart-line"></i></div>
               <a href="modules/learning/index.php#intermediate" class="stretched-link"><h3>Financial Analysis</h3></a>
               <p>Master the art of reading financial statements, evaluating company health, and making data-driven investment decisions.</p>
             </div>
@@ -196,9 +205,7 @@
       </div>
     </section><!-- /Learning Section -->
 
-    <!-- ==========================================================================
-         NEW: Upcoming Events Section 
-         ========================================================================== -->
+    <!-- Upcoming Events Section -->
     <section id="events" class="events section light-background">
       <div class="container section-title" data-aos="fade-up">
         <h2>Upcoming Events</h2>
@@ -249,9 +256,7 @@
       </div>
     </section><!-- /Events Section -->
 
-    <!-- ==========================================================================
-         NEW: Partners & Outcomes Section 
-         ========================================================================== -->
+    <!-- Partners & Outcomes Section -->
     <section id="partners" class="partners section">
       <div class="container section-title" data-aos="fade-up">
         <h2>Our Network</h2>
@@ -289,8 +294,7 @@
             </div>
           </div>
 
-        </div>
-        
+        </div>        
         <p class="text-center text-muted mt-4" style="font-size: 0.9rem;">
           <em>* Partner logos (e.g., KCB, NCBA, Cytonn, Genghis Capital) will be integrated here.</em>
         </p>
@@ -315,36 +319,36 @@
 
           <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <img src="assets/img/masonry-portfolio/masonry-portfolio-1.jpg" class="img-fluid" alt="NSE Markets">
+              <img src="assets/img/markets/market-data.jpg" class="img-fluid" alt="NSE Markets">
               <div class="portfolio-info">
                 <h4>NSE Market Data</h4>
                 <p>Explore live market information, listed securities, and daily market activity.</p>
-                <a href="assets/img/masonry-portfolio/masonry-portfolio-1.jpg" title="NSE Markets" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="assets/img/markets/market-data.jpg" title="NSE Markets" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                 <a href="#" title="nse markets" class="details-link"><i class="bi bi-link-45deg"></i></a>
               </div>
             </div>
 
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <img src="assets/img/masonry-portfolio/masonry-portfolio-2.jpg" class="img-fluid" alt="Stock Brokers">
+              <img src="assets/img/markets/stock-brokers.jpg" class="img-fluid" alt="Stock Brokers">
               <div class="portfolio-info">
                 <h4>Licensed Brokers</h4>
                 <p>Access information and resources from CMA-recognised market intermediaries.</p>
-                <a href="assets/img/masonry-portfolio/masonry-portfolio-2.jpg" title="Licensed Brokers" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="assets/img/markets/stock-brokers.jpg" title="Licensed Brokers" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                 <a href="#" title="stock brokers" class="details-link"><i class="bi bi-link-45deg"></i></a>
               </div>
             </div>
 
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-              <img src="assets/img/masonry-portfolio/masonry-portfolio-3.jpg" class="img-fluid" alt="Investment Guides">
+              <img src="assets/img/markets/investment-guide.jpg" class="img-fluid" alt="Investment Guides">
               <div class="portfolio-info">
                 <h4>Investment Guides</h4>
                 <p>Access our curated brochure of approved learning materials and school resources.</p>
-                <a href="assets/img/masonry-portfolio/masonry-portfolio-3.jpg" title="Investment Guides" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="assets/img/markets/investment-guide.jpg" title="Investment Guides" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
                 <a href="#" title="school brochure" class="details-link"><i class="bi bi-link-45deg"></i></a>
               </div>
             </div>
           </div>
-        </div> <!-- Closed isotope-layout -->
+        </div> 
       </div>
     </section><!-- /Portfolio Section -->
 
@@ -392,7 +396,6 @@
               </div>
             </div>
           </div>
-
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
             <div class="team-leadership">
               <div class="leadership-img">
@@ -456,9 +459,7 @@
       </div>
     </section><!-- /Faq Section -->
 
-    <!-- ==========================================================================
-         Prominent Join CTA Section 
-         ========================================================================== -->
+    <!-- Prominent Join CTA Section -->
     <section id="join-cta" class="join-cta section">
       <div class="container" data-aos="zoom-in">
         
@@ -492,8 +493,7 @@
               <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
                 <i class="bi bi-geo-alt flex-shrink-0"></i>
                 <div>
-                  <h3>Address</h3>
-                  <p>Mount Kenya University, Thika, Kenya.</p>
+                  <h3>Address</h3>                  <p>Mount Kenya University, Thika, Kenya.</p>
                 </div>
               </div>
 
@@ -561,7 +561,7 @@
     <div class="container footer-top">
       <div class="row gy-4">
         <div class="col-lg-4 col-md-6 footer-about">
-          <a href="index.html" class="d-flex align-items-center">
+          <a href="index.php" class="d-flex align-items-center">
             <span class="sitename">NSE MKU Club</span>
           </a>
           <div class="footer-contact pt-3">
@@ -593,7 +593,6 @@
             <li><i class="bi bi-chevron-right"></i> <a href="#">Student Rights</a></li>
           </ul>
         </div>
-
         <div class="col-lg-2 col-md-3 footer-links">
           <h4>Resources</h4>
           <ul>
@@ -642,9 +641,7 @@
   <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 

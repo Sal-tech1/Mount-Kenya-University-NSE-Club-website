@@ -45,7 +45,7 @@ $userRole = $_SESSION['user_role'] ?? 'USER';
             <p style="color: var(--text-muted); font-size: 0.95rem; margin: 10px 0;">
                 Practice buying and selling NSE shares with virtual capital. Track your performance against the market.
             </p>
-            <a href="/NSE-Club-Website/modules/tracker/index.php" class="btn" style="display: inline-block; margin-top: 10px;">Launch Tracker</a>
+            <a href="../tracker/index.php" class="btn" style="display: inline-block; margin-top: 10px;">Launch Tracker</a>
         </div>
 
         <!-- Card 2: Learning Hub (Available to everyone logged in) -->
@@ -54,7 +54,7 @@ $userRole = $_SESSION['user_role'] ?? 'USER';
             <p style="color: var(--text-muted); font-size: 0.95rem; margin: 10px 0;">
                 Continue your investment courses and test your knowledge to earn digital completion badges.
             </p>
-            <a href="/NSE-Club-Website/modules/learning/index.php" class="btn" style="display: inline-block; margin-top: 10px;">View Courses</a>
+            <a href="../learning/index.php" class="btn" style="display: inline-block; margin-top: 10px;">View Courses</a>
         </div>
 
         <!-- Card 3: Resource Centre (Restricted based on role) -->
@@ -64,7 +64,7 @@ $userRole = $_SESSION['user_role'] ?? 'USER';
                 Access exclusive webinar recordings, official meeting minutes, financial statements, and investment books.
             </p>
             <?php if ($userRole === 'MEMBER' || $userRole === 'ADMIN'): ?>
-                <a href="/NSE-Club-Website/modules/resources/index.php" class="btn btn-accent" style="display: inline-block; margin-top: 10px;">Access Library</a>
+                <a href="../resources/index.php" class="btn btn-accent" style="display: inline-block; margin-top: 10px;">Access Library</a>
             <?php else: ?>
                 <span style="display: inline-block; margin-top: 10px; font-size: 0.85rem; color: #D8000C; font-weight: bold;">
                     🔒 Official Club Members Only

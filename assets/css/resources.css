@@ -37,12 +37,14 @@
   margin-left:.35rem;
 }
 .shelf-tab:hover{ border-color:var(--gold-500); color:var(--navy-900); }
-.shelf-tab.active{
-  background:var(--navy-900);
-  border-color:var(--navy-900);
-  color:#fff;
+.shelf-tab.active {
+  background: #0B1F38 !important;
+  border-color: #0B1F38 !important;
+  color: #ffffff !important;
 }
-.shelf-tab.active .count{ color:var(--gold-300); }
+.shelf-tab.active .count {
+  color: #E4C860 !important;
+}
 
 /* --- Resource card --- */
 .resource-card{
