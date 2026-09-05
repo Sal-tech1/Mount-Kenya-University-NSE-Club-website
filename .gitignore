@@ -7,3 +7,17 @@ config.php
 # Ignore OS files
 .DS_Store
 Thumbs.db
+
+# Testing and debugging scripts
+test.php
+debug.php
+*.test.php
+
+# Local configuration files
+config.local.php
+*.local.php
+.env
+
+# System and log files
+error_log
+*.log
