@@ -3,7 +3,6 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Enforce authentication and official member or admin status
 if (!isset($_SESSION['user_id']) || !in_array($_SESSION['user_role'] ?? 'USER', ['MEMBER', 'ADMIN'])) {
     header("Location: ../portal/login.php");
     exit;
@@ -11,135 +10,51 @@ if (!isset($_SESSION['user_id']) || !in_array($_SESSION['user_role'] ?? 'USER', 
 
 $resources = [
     [
-        'title'       => 'NSE MKU Club Constitution 2026',
-        'category'    => 'constitution',
-        'category_label' => 'Club Constitution',
-        'description' => 'The official governing document outlining member guidelines, leadership roles, and general objectives.',
-        'date'        => '2026-01-15',
+        'title'       => 'Beginner Track: Market Fundamentals',
+        'category'    => 'cheat-sheets',
+        'category_label' => 'Cheat Sheets',
+        'description' => 'A short primer covering stock basics, dividends, CDS accounts, and NSE functions to prep for the Beginner assessment.',
+        'date'        => '2026-09-01',
         'type'        => 'pdf',
-        'size'        => '850 KB',
+        'size'        => '1.2 MB',
+        'file_url'    => '../../assets/docs/beginner_fundamentals.pdf'
     ],
     [
-        'title'       => 'The Intelligent Investor (Study Edition)',
-        'category'    => 'books',
-        'category_label' => 'Investment Books',
-        'description' => 'Benjamin Graham\'s value-investing classic, annotated for the club\'s beginner reading track.',
-        'date'        => '2026-06-18',
+        'title'       => 'Intermediate Track: Portfolio Management',
+        'category'    => 'cheat-sheets',
+        'category_label' => 'Cheat Sheets',
+        'description' => 'Key concepts including P/E ratios, bull vs bear markets, portfolio diversification, and reading income statements.',
+        'date'        => '2026-09-02',
         'type'        => 'pdf',
-        'size'        => '4.2 MB',
+        'size'        => '1.5 MB',
+        'file_url'    => '../../assets/docs/intermediate_portfolio.pdf'
     ],
     [
-        'title'       => 'Introduction to the NSE Trading Floor',
-        'category'    => 'webinars',
-        'category_label' => 'Recorded Webinars',
-        'description' => 'A recorded walkthrough of how equities are listed, matched, and settled on the Nairobi Securities Exchange.',
-        'date'        => '2026-05-02',
-        'type'        => 'video',
-        'size'        => '312 MB',
+        'title'       => 'Advanced Track: Technical Analysis',
+        'category'    => 'cheat-sheets',
+        'category_label' => 'Cheat Sheets',
+        'description' => 'Quick review of RSI, DCF objectives, market capitalization, and systematic risk for the final assessment.',
+        'date'        => '2026-09-03',
+        'type'        => 'pdf',
+        'size'        => '1.8 MB',
+        'file_url'    => '../../assets/docs/advanced_analysis.pdf'
     ],
     [
-        'title'       => 'AGM Minutes - March 2026',
-        'category'    => 'minutes',
-        'category_label' => 'Meeting Minutes',
-        'description' => 'Official record of resolutions, attendance, and committee reports from the club\'s Annual General Meeting.',
-        'date'        => '2026-03-14',
-        'type'        => 'doc',
-        'size'        => '186 KB',
-    ],
-    [
-        'title'       => 'Sector Rotation Strategy - Club Pitch Deck',
-        'category'    => 'presentations',
-        'category_label' => 'Club Presentations',
-        'description' => 'Slides from the student portfolio team on rotating exposure across banking, telecom, and energy counters.',
-        'date'        => '2026-04-27',
-        'type'        => 'doc',
-        'size'        => '5.8 MB',
-    ],
-    [
-        'title'       => 'Safaricom PLC - FY2025 Financial Statements',
+        'title'       => 'Safaricom PLC FY Financial Statements',
         'category'    => 'financials',
         'category_label' => 'Financial Statements',
         'description' => 'Audited annual financial statements including balance sheet, income statement, and cash flow notes.',
         'date'        => '2026-02-09',
         'type'        => 'pdf',
         'size'        => '2.1 MB',
-    ],
-    [
-        'title'       => 'Kenya Banking Sector Outlook 2026',
-        'category'    => 'research',
-        'category_label' => 'Research Reports',
-        'description' => 'Independent research note on interest margins, asset quality, and digital lending trends across listed banks.',
-        'date'        => '2026-01-22',
-        'type'        => 'pdf',
-        'size'        => '1.4 MB',
-    ],
-    [
-        'title'       => 'NSE Monthly Market Statistics - July 2026',
-        'category'    => 'market-reports',
-        'category_label' => 'Market Reports',
-        'description' => 'Turnover, market capitalisation, and index performance summary published by the exchange for the month.',
-        'date'        => '2026-08-01',
-        'type'        => 'xls',
-        'size'        => '740 KB',
-    ],
-    [
-        'title'       => 'Reading Bond & T-Bill Yield Curves',
-        'category'    => 'education',
-        'category_label' => 'Educational PDFs',
-        'description' => 'A short guide explaining how club members can read CBK yield curve data and what it signals for equities.',
-        'date'        => '2025-12-11',
-        'type'        => 'pdf',
-        'size'        => '980 KB',
-    ],
-    [
-        'title'       => 'Behavioural Finance for Student Investors',
-        'category'    => 'books',
-        'category_label' => 'Investment Books',
-        'description' => 'A condensed reading pack on cognitive biases that affect trading decisions, curated for club onboarding.',
-        'date'        => '2025-11-30',
-        'type'        => 'doc',
-        'size'        => '3.3 MB',
-    ],
-    [
-        'title'       => 'Understanding ETFs Listed on the NSE',
-        'category'    => 'webinars',
-        'category_label' => 'Recorded Webinars',
-        'description' => 'Guest session recording covering how exchange-traded funds are priced and traded locally.',
-        'date'        => '2026-03-05',
-        'type'        => 'video',
-        'size'        => '198 MB',
-    ],
-    [
-        'title'       => 'Q2 2026 Portfolio Committee Report',
-        'category'    => 'financials',
-        'category_label' => 'Financial Statements',
-        'description' => 'Internal club report on the performance of the paper-trading portfolio for the second quarter.',
-        'date'        => '2026-07-10',
-        'type'        => 'xls',
-        'size'        => '412 KB',
-    ],
-    [
-        'title'       => 'Frontier & Emerging Markets Primer',
-        'category'    => 'research',
-        'category_label' => 'Research Reports',
-        'description' => 'Overview of how frontier market classification affects foreign investor appetite for Kenyan equities.',
-        'date'        => '2025-10-19',
-        'type'        => 'pdf',
-        'size'        => '1.9 MB',
-    ],
+        'file_url'    => '../../assets/docs/safaricom_financials.pdf'
+    ]
 ];
 
 $categories = [
     'all'            => 'All Resources',
-    'constitution'   => 'Club Constitution',
-    'books'          => 'Investment Books',
-    'webinars'       => 'Recorded Webinars',
-    'minutes'        => 'Meeting Minutes',
-    'presentations'  => 'Club Presentations',
-    'financials'     => 'Financial Statements',
-    'research'       => 'Research Reports',
-    'market-reports' => 'Market Reports',
-    'education'      => 'Educational PDFs',
+    'cheat-sheets'   => 'Cheat Sheets',
+    'financials'     => 'Financial Statements'
 ];
 
 $categoryCounts = array_fill_keys(array_keys($categories), 0);
@@ -152,23 +67,29 @@ foreach ($resources as $r) {
 
 $typeMeta = [
     'pdf'   => ['icon' => 'bi-file-earmark-pdf',   'label' => 'PDF'],
-    'video' => ['icon' => 'bi-camera-reels',        'label' => 'Video'],
-    'doc'   => ['icon' => 'bi-file-earmark-word',   'label' => 'DOCX'],
-    'xls'   => ['icon' => 'bi-file-earmark-excel',  'label' => 'XLSX'],
+    'video' => ['icon' => 'bi-camera-reels',       'label' => 'Video'],
+    'doc'   => ['icon' => 'bi-file-earmark-word',  'label' => 'DOCX'],
+    'xls'   => ['icon' => 'bi-file-earmark-excel', 'label' => 'XLSX'],
 ];
 
-// Load the isolated CSS file for this specific page
 $custom_css = ['resources.css'];
 require_once __DIR__ . '/../../includes/header.php'; 
 ?>
 
-<main class="container py-5">
+<main class="container py-5" style="min-height: 80vh;">
+
+  <div class="alert border-0 shadow-sm mb-5 d-flex align-items-center" role="alert" style="background-color: #e7f1ff; color: #002A54; border-left: 5px solid var(--primary-green) !important;">
+      <i class="bi bi-info-circle-fill fs-4 me-3 text-success"></i>
+      <div>
+          <strong>Notice:</strong> Additional reading materials, official documentation, and recorded walkthroughs are currently being curated and will be available soon. Use the core guides provided below to prep for your learning tier assessments!
+      </div>
+  </div>
 
   <div class="row g-3 align-items-center mb-4">
     <div class="col-lg-5">
-      <div class="resource-search d-flex align-items-center px-3 py-2">
-        <i class="bi bi-search me-2"></i>
-        <input type="text" id="resourceSearch" class="form-control" placeholder="Search resources by title or keyword&hellip;">
+      <div class="resource-search d-flex align-items-center px-3 py-2 bg-white rounded shadow-sm border">
+        <i class="bi bi-search me-2 text-muted"></i>
+        <input type="text" id="resourceSearch" class="form-control border-0 shadow-none bg-transparent" placeholder="Search resources by title or keyword...">
       </div>
     </div>
     <div class="col-lg-7 text-lg-end">
@@ -176,40 +97,42 @@ require_once __DIR__ . '/../../includes/header.php';
     </div>
   </div>
 
-  <div class="shelf-rail mb-5">
+  <div class="shelf-rail mb-5 pb-2" style="overflow-x: auto; white-space: nowrap;">
     <?php foreach ($categories as $key => $label): ?>
-      <button type="button" class="shelf-tab <?php echo $key === 'all' ? 'active' : ''; ?>" data-category="<?php echo htmlspecialchars($key); ?>">
-        <?php echo htmlspecialchars($label); ?><span class="count">(<?php echo $categoryCounts[$key]; ?>)</span>
+      <button type="button" class="btn btn-outline-secondary rounded-pill me-2 mb-2 shelf-tab <?php echo $key === 'all' ? 'active bg-secondary text-white' : ''; ?>" data-category="<?php echo htmlspecialchars($key); ?>">
+        <?php echo htmlspecialchars($label); ?> <span class="badge bg-light text-dark ms-1 rounded-pill"><?php echo $categoryCounts[$key]; ?></span>
       </button>
     <?php endforeach; ?>
   </div>
 
-  <div class="row g-4">
+  <div class="row g-4" id="resourceGrid">
     <?php foreach ($resources as $r):
       $meta = $typeMeta[$r['type']];
       $searchBlob = strtolower($r['title'] . ' ' . $r['description'] . ' ' . $r['category_label']);
     ?>
       <div class="col-md-6 col-xl-4 resource-card-col" data-category="<?php echo htmlspecialchars($r['category']); ?>" data-search="<?php echo htmlspecialchars($searchBlob); ?>">
-        <div class="nse-card resource-card">
-          <div class="spine type-<?php echo $r['type']; ?>"></div>
-          <div class="card-body">
-            <div class="d-flex align-items-start gap-3 mb-2">
-              <div class="file-icon type-<?php echo $r['type']; ?>"><i class="bi <?php echo $meta['icon']; ?>"></i></div>
+        <div class="card h-100 shadow-sm border-0 resource-card" style="border-top: 4px solid var(--mku-royal-blue);">
+          <div class="card-body p-4 d-flex flex-column">
+            <div class="d-flex align-items-start gap-3 mb-3">
+              <div class="text-danger fs-1"><i class="bi <?php echo $meta['icon']; ?>"></i></div>
               <div>
-                <div class="kicker"><?php echo htmlspecialchars($r['category_label']); ?></div>
-                <div class="title"><?php echo htmlspecialchars($r['title']); ?></div>
+                <div class="text-uppercase text-muted fw-bold" style="font-size: 0.75rem; letter-spacing: 0.5px;"><?php echo htmlspecialchars($r['category_label']); ?></div>
+                <h5 class="fw-bold mt-1 mb-0" style="color: var(--mku-royal-blue);"><?php echo htmlspecialchars($r['title']); ?></h5>
               </div>
             </div>
-            <p class="desc"><?php echo htmlspecialchars($r['description']); ?></p>
-            <div class="meta">
-              <span><i class="bi bi-calendar3"></i> <?php echo date('d M Y', strtotime($r['date'])); ?></span>
+            
+            <p class="text-secondary small mb-4 flex-grow-1"><?php echo htmlspecialchars($r['description']); ?></p>
+            
+            <div class="d-flex justify-content-between align-items-center mb-4 text-muted small fw-semibold">
+              <span><i class="bi bi-calendar3 me-1"></i> <?php echo date('d M Y', strtotime($r['date'])); ?></span>
               <span><?php echo $meta['label']; ?> &middot; <?php echo $r['size']; ?></span>
             </div>
-            <div class="actions">
-              <button type="button" class="btn btn-nse-outline btn-preview" data-title="<?php echo htmlspecialchars($r['title']); ?>">
+            
+            <div class="d-flex gap-2 mt-auto">
+              <a href="<?php echo htmlspecialchars($r['file_url']); ?>" target="_blank" class="btn btn-outline-secondary w-50 fw-bold">
                 <i class="bi bi-eye"></i> Preview
-              </button>
-              <a href="#" class="btn btn-nse-gold" onclick="return false;" title="Download will be enabled once files are hosted">
+              </a>
+              <a href="<?php echo htmlspecialchars($r['file_url']); ?>" download class="btn btn-success w-50 fw-bold" style="background-color: var(--primary-green); border: none;">
                 <i class="bi bi-download"></i> Download
               </a>
             </div>
@@ -218,27 +141,63 @@ require_once __DIR__ . '/../../includes/header.php';
       </div>
     <?php endforeach; ?>
   </div>
-
-  <div class="empty-state d-none" id="emptyState">
-    <i class="bi bi-inboxes" style="font-size:2.5rem;"></i>
-    <p class="mt-3 mb-0">No resources match your search. Try a different keyword or category.</p>
+  
+  <div class="text-center py-5 d-none" id="emptyState">
+    <i class="bi bi-inboxes text-muted" style="font-size: 4rem;"></i>
+    <h4 class="mt-3 text-muted">No resources found</h4>
+    <p class="mb-0 text-secondary">Try adjusting your search terms or category filters.</p>
   </div>
 
 </main>
 
-<div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="previewModalLabel">Preview</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body" id="previewModalBody"></div>
-    </div>
-  </div>
-</div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../../assets/js/resources.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('resourceSearch');
+    const tabs = document.querySelectorAll('.shelf-tab');
+    const cards = document.querySelectorAll('.resource-card-col');
+    const resultCount = document.getElementById('resultCount');
+    const emptyState = document.getElementById('emptyState');
+
+    function filterResources() {
+        const query = searchInput.value.toLowerCase();
+        const activeTab = document.querySelector('.shelf-tab.active').getAttribute('data-category');
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+            const matchesSearch = card.getAttribute('data-search').includes(query);
+            const matchesCategory = (activeTab === 'all' || card.getAttribute('data-category') === activeTab);
+            
+            if (matchesSearch && matchesCategory) {
+                card.classList.remove('d-none');
+                visibleCount++;
+            } else {
+                card.classList.add('d-none');
+            }
+        });
+
+        resultCount.textContent = visibleCount + (visibleCount === 1 ? ' resource' : ' resources');
+        
+        if (visibleCount === 0) {
+            emptyState.classList.remove('d-none');
+        } else {
+            emptyState.classList.add('d-none');
+        }
+    }
+
+    searchInput.addEventListener('input', filterResources);
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            tabs.forEach(t => {
+                t.classList.remove('active', 'bg-secondary', 'text-white');
+            });
+            this.classList.add('active', 'bg-secondary', 'text-white');
+            filterResources();
+        });
+    });
+});
+</script>
 
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>

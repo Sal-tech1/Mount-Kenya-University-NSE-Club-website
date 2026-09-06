@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /modules/portal/
+Disallow: /modules/resources/
+Disallow: /modules/tracker/
+Allow: /
+
+Sitemap: https://www.nsemkuclub.co.ke/sitemap.xml

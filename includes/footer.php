@@ -14,8 +14,8 @@ $basePath = str_replace($docRoot, '', $projectRoot);
           <div class="footer-contact pt-3">
             <p>Mount Kenya University</p>
             <p>Thika, Kenya</p>
-            <p class="mt-3"><strong>Phone:</strong> <span>+254 700 000 000</span></p>
-            <p><strong>Email:</strong> <span>info@nsemkuclub.ke</span></p>
+            <p class="mt-3"><strong>Phone:</strong> <span>+254 714 608 132</span></p>
+            <p><strong>Email:</strong> <span>mkunseclub@gmail.com</span></p>
           </div>
         </div>
 
@@ -24,42 +24,34 @@ $basePath = str_replace($docRoot, '', $projectRoot);
           <ul>
             <li><i class="bi bi-chevron-right"></i> <a href="<?php echo $basePath; ?>/index.php">Home</a></li>
             <li><i class="bi bi-chevron-right"></i> <a href="<?php echo $basePath; ?>/index.php#about">About</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="<?php echo $basePath; ?>/index.php#portfolio">Markets</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="<?php echo $basePath; ?>/modules/learning/index.php">Learning</a></li>
             <li><i class="bi bi-chevron-right"></i> <a href="<?php echo $basePath; ?>/index.php#team">Leadership</a></li>
             <li><i class="bi bi-chevron-right"></i> <a href="<?php echo $basePath; ?>/index.php#contact">Contact</a></li>
           </ul>
         </div>
 
         <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Club</h4>
+          <h4>Portal & Legal</h4>
           <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Cookie Policy</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy Policy</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of Service</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Student Rights</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="<?php echo $basePath; ?>/modules/portal/login.php">Student Login</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="<?php echo $basePath; ?>/modules/portal/register.php">Create Account</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="<?php echo $basePath; ?>/privacy.php">Privacy Policy</a></li>
           </ul>
         </div>
 
         <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Resources</h4>
+          <h4>Platform</h4>
           <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="<?php echo $basePath; ?>/modules/learning/index.php">Learning Materials</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Market Reports</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Investment Guides</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="#">Research Papers</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="<?php echo $basePath; ?>/index.php#faq">FAQs</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="<?php echo $basePath; ?>/modules/tracker/index.php">Virtual Tracker</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="<?php echo $basePath; ?>/modules/learning/index.php">Learning Hub</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="<?php echo $basePath; ?>/modules/resources/index.php">Resource Centre</a></li>
           </ul>
         </div>
 
         <div class="col-lg-2 col-md-3 footer-links">
           <h4>Connect with Us</h4>
-          <p>Follow us on our socials</p>
+          <p>Follow us on LinkedIn</p>
           <div class="social-links d-flex">
-            <a href="#"><i class="bi bi-twitter-x"></i></a>
-            <a href="#"><i class="bi bi-youtube"></i></a>
-            <a href="#"><i class="bi bi-instagram"></i></a>
-            <a href="#"><i class="bi bi-linkedin"></i></a>
+            <a href="https://www.linkedin.com/company/nse-investmentclub/" target="_blank"><i class="bi bi-linkedin"></i></a>
           </div>
         </div>
       </div>

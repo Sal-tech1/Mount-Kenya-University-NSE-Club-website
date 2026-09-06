@@ -1,228 +1,74 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-// Security Check
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../portal/login.php");
-    exit;
-}
+if (session_status() === PHP_SESSION_NONE) session_start();
+if (!isset($_SESSION['user_id'])) { header("Location: ../portal/login.php"); exit; }
 
 require_once __DIR__ . '/../../includes/header.php';
 require_once __DIR__ . '/../../includes/db.php';
 
-$level = strtolower(trim($_GET['level'] ?? 'beginner'));
-$dbLevel = strtoupper($level);
-$passMark = 80;
-$tierLabel = ucfirst($level);
+$level = isset($_GET['level']) ? strtoupper(trim($_GET['level'])) : 'BEGINNER';
+$allowedLevels = ['BEGINNER', 'INTERMEDIATE', 'ADVANCED', 'GRADUATE'];
+if (!in_array($level, $allowedLevels)) $level = 'BEGINNER';
 
-// Fetch questions from MySQL instead of content.php
 $stmt = $pdo->prepare("SELECT * FROM quizzes WHERE level = :level ORDER BY quiz_id ASC");
-$stmt->execute([':level' => $dbLevel]);
-$dbQuestions = $stmt->fetchAll();
-
-if (empty($dbQuestions)) {
-    http_response_code(404);
-    ?>
-    <main class="main">
-        <section class="section light-background min-vh-100 d-flex align-items-center">
-            <div class="container text-center">
-                <h2>Assessment not found</h2>
-                <p class="mb-4">Return to the learning centre and select a module assessment.</p>
-                <a href="index.php" class="btn btn-primary">Learning centre</a>
-            </div>
-        </section>
-    </main>
-    <?php
-    require_once __DIR__ . '/../../includes/footer.php';
-    exit;
-}
-
-// Map database rows to the structure your UI expects
-$questions = [];
-foreach ($dbQuestions as $row) {
-    $questions[] = [
-        'id'      => $row['quiz_id'],
-        'text'    => $row['question_text'],
-        'options' => [
-            'A' => $row['option_a'],
-            'B' => $row['option_b'],
-            'C' => $row['option_c'],
-            'D' => $row['option_d']
-        ],
-        'correct' => $row['correct_option']
-    ];
-}
-
-$results = null;
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $score  = 0;
-    $total  = count($questions);
-    $review = [];
-
-    foreach ($questions as $index => $question) {
-        $inputName = 'q' . $question['id'];
-        $selected  = $_POST[$inputName] ?? '';
-        $correct   = $question['correct'];
-        $isCorrect = ($selected === $correct);
-
-        if ($isCorrect) {
-            $score++;
-        }
-
-        $review[] = [
-            'question'   => $question['text'],
-            'selected'   => $selected,
-            'correct'    => $correct,
-            'is_correct' => $isCorrect,
-        ];
-    }
-
-    $percentage = $total > 0 ? round(($score / $total) * 100) : 0;
-
-    // Database update logic to save progress
-    if ($percentage >= $passMark) {
-        $nextTier = 'BEGINNER';
-        if ($dbLevel === 'BEGINNER') $nextTier = 'INTERMEDIATE';
-        if ($dbLevel === 'INTERMEDIATE') $nextTier = 'ADVANCED';
-        if ($dbLevel === 'ADVANCED') $nextTier = 'GRADUATE';
-        
-        $updateStmt = $pdo->prepare("UPDATE users SET learning_tier = :tier WHERE user_id = :uid AND learning_tier = :current");
-        $updateStmt->execute([
-            ':tier' => $nextTier,
-            ':uid'  => $_SESSION['user_id'],
-            ':current' => $dbLevel
-        ]);
-    }
-
-    $results = [
-        'score'      => $score,
-        'total'      => $total,
-        'percentage' => $percentage,
-        'passed'     => $percentage >= $passMark,
-        'review'     => $review,
-    ];
-}
+$stmt->execute([':level' => $level]);
+$questions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<main class="main">
-
-    <section class="section light-background pt-5 pb-4">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <a href="index.php" class="text-decoration-none btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> Back to Modules</a>
-                <span class="badge bg-primary rounded-pill px-3 py-2 fs-6"><?php echo htmlspecialchars($tierLabel); ?> module</span>
+<main class="quiz-page" style="background-color: #f8f9fa; min-height: 80vh;">
+    <header class="learning-banner" style="background-color: #002A54; padding: 40px 0; border-bottom: 4px solid var(--primary-green);">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div>
+                <!-- Enforced span for white text -->
+                <h1 style="margin-bottom: 5px; text-shadow: 1px 1px 3px rgba(0,0,0,0.3);">
+                    <span style="color: #FFFFFF !important; font-weight: 800; font-size: 2.2rem; display: inline-block;">
+                        <?php echo htmlspecialchars(ucfirst(strtolower($level))); ?> Assessment
+                    </span>
+                </h1>
+                <p style="color: #E0E0E0 !important; font-size: 1.1rem; margin-bottom: 0;">Complete this assessment to unlock your next rank.</p>
             </div>
-            
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center" data-aos="fade-up">
-                    <h1 class="mb-3"><?php echo htmlspecialchars($tierLabel); ?> Market Quiz</h1>
-                    <p class="text-muted fs-5">Test your investment knowledge against the club curriculum.</p>
-                    
-                    <?php if ($results === null): ?>
-                        <div class="d-flex justify-content-center gap-4 mt-4">
-                            <span class="fw-bold"><i class="bi bi-ui-checks text-primary"></i> <?php echo count($questions); ?> questions</span>
-                            <span class="fw-bold"><i class="bi bi-bullseye text-primary"></i> <?php echo $passMark; ?>% to pass</span>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            </div>
+            <div><a href="index.php" class="btn btn-outline-light btn-sm fw-bold">Back to Hub</a></div>
         </div>
-    </section>
+    </header>
 
-    <div class="container section">
-        <div class="row justify-content-center">
-            <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
-
-        <?php if ($results !== null): ?>
-
-            <div class="card border-0 shadow-sm mb-5 <?php echo $results['passed'] ? 'bg-success bg-opacity-10' : 'bg-danger bg-opacity-10'; ?>">
-                <div class="card-body text-center p-5">
-                    <h2 class="display-1 fw-bold <?php echo $results['passed'] ? 'text-success' : 'text-danger'; ?>"><?php echo (int) $results['percentage']; ?>%</h2>
-                    <h3 class="mb-3 fw-bold <?php echo $results['passed'] ? 'text-success' : 'text-danger'; ?>"><?php echo $results['passed'] ? 'Passed!' : 'Try Again'; ?></h3>
-                    <p class="mb-0 fs-5 text-dark"><?php echo (int) $results['score']; ?> out of <?php echo (int) $results['total']; ?> correct</p>
-                </div>
-            </div>
-
-            <h3 class="mb-4">Answer Review</h3>
-            <div class="list-group list-group-flush mb-5 shadow-sm rounded">
-                <?php foreach ($results['review'] as $i => $item): ?>
-                    <div class="list-group-item bg-white border-bottom py-4 px-4">
-                        <h5 class="mb-4 lh-base">
-                            <span class="badge bg-secondary me-2"><?php echo $i + 1; ?></span>
-                            <?php echo htmlspecialchars($item['question'] ?: '-'); ?>
-                        </h5>
-                        
-                        <div class="d-flex align-items-center mb-2 <?php echo $item['is_correct'] ? 'text-success' : 'text-danger'; ?>">
-                            <i class="bi fs-5 <?php echo $item['is_correct'] ? 'bi-check-circle-fill' : 'bi-x-circle-fill'; ?> me-3"></i>
-                            <div class="fs-6">
-                                <strong>Your answer:</strong>&nbsp; <span class="text-dark"><?php echo htmlspecialchars($item['selected'] ?: 'Skipped'); ?></span>
-                            </div>
-                        </div>
-                        
-                        <?php if (!$item['is_correct']): ?>
-                            <div class="d-flex align-items-center text-success mt-2">
-                                <i class="bi bi-check-circle-fill fs-5 me-3"></i>
-                                <div class="fs-6">
-                                    <strong>Correct answer:</strong>&nbsp; <span class="text-dark"><?php echo htmlspecialchars($item['correct']); ?></span>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-
-            <div class="d-flex justify-content-center gap-3 mt-5">
-                <a href="quiz.php?level=<?php echo urlencode($level); ?>" class="btn btn-primary px-5 rounded-pill shadow-sm">Retry Assessment</a>
-                <a href="index.php" class="btn btn-outline-secondary px-5 rounded-pill">Back to Modules</a>
-            </div>
-
+    <div class="container py-5">
+        <?php if (empty($questions)): ?>
+            <div class="alert alert-warning">No questions found for this level.</div>
         <?php else: ?>
-
-            <form method="POST" action="quiz.php?level=<?php echo urlencode($level); ?>">
-
-                <?php foreach ($questions as $index => $question): ?>
-                    <div class="card border-0 shadow-sm mb-5">
-                        <div class="card-body p-4 p-md-5">
-                            <h4 class="card-title mb-4 lh-base">
-                                <span class="badge bg-primary me-2"><?php echo $index + 1; ?></span>
-                                <?php echo htmlspecialchars($question['text']); ?>
-                            </h4>
-
-                            <div class="d-flex flex-column gap-3 mt-4">
-                            <?php 
-                            $shuffledKeys = array_keys($question['options']);
-                            shuffle($shuffledKeys);
-                            foreach ($shuffledKeys as $key): 
-                                $label = $question['options'][$key];
-                                if (trim($label) === '') continue; 
-                            ?>
-                                <label class="list-group-item rounded border p-3 d-flex align-items-center bg-light" style="cursor: pointer; transition: all 0.2s ease;" onmouseover="this.classList.add('bg-white', 'shadow-sm')" onmouseout="this.classList.remove('bg-white', 'shadow-sm')">
-                                    <input class="form-check-input me-3 mt-0 fs-5" type="radio" name="q<?php echo $question['id']; ?>" value="<?php echo htmlspecialchars($key); ?>" required>
-                                    <div class="fs-6">
-                                        <?php echo htmlspecialchars($label); ?>
-                                    </div>
-                                </label>
+            <form action="grade.php" method="POST" class="bg-white p-4 p-md-5 rounded shadow-sm border-0">
+                <input type="hidden" name="level" value="<?php echo htmlspecialchars($level); ?>">
+                
+                <?php foreach ($questions as $index => $q): 
+                    // Set up and shuffle options
+                    $options = ['A' => $q['option_a'], 'B' => $q['option_b'], 'C' => $q['option_c'], 'D' => $q['option_d']];
+                    $keys = array_keys($options);
+                    shuffle($keys);
+                ?>
+                    <div class="mb-5">
+                        <h4 class="fw-bold mb-4" style="color: var(--mku-royal-blue); line-height: 1.5;">
+                            <?php echo ($index + 1) . '. ' . htmlspecialchars($q['question_text']); ?>
+                        </h4>
+                        
+                        <div class="ps-2 ps-md-4">
+                            <?php foreach ($keys as $key): ?>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="radio" name="answers[<?php echo $q['quiz_id']; ?>]" id="q<?php echo $q['quiz_id']; ?>_<?php echo $key; ?>" value="<?php echo $key; ?>" required>
+                                    <label class="form-check-label" for="q<?php echo $q['quiz_id']; ?>_<?php echo $key; ?>" style="cursor: pointer;">
+                                        <?php echo htmlspecialchars($options[$key]); ?>
+                                    </label>
+                                </div>
                             <?php endforeach; ?>
-                            </div>
                         </div>
                     </div>
+                    <?php if ($index < count($questions) - 1) echo '<hr class="text-muted opacity-25 my-4">'; ?>
                 <?php endforeach; ?>
 
-                <div class="mt-5 text-center" style="margin-bottom: 50px;">
-                    <button type="submit" class="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-sm fw-bold">Submit Assessment <i class="bi bi-arrow-right ms-2"></i></button>
+                <div class="text-end mt-5 pt-3 border-top">
+                    <button type="submit" class="btn btn-success fw-bold px-5 py-2" style="background-color: var(--primary-green);">
+                        Submit Assessment
+                    </button>
                 </div>
-
             </form>
-
         <?php endif; ?>
-
-            </div>
-        </div>
     </div>
-
 </main>
-
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>
