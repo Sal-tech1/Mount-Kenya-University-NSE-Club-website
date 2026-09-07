@@ -55,6 +55,12 @@ require_once __DIR__ . '/../../includes/header.php';
         <h3>Student Account Login</h3>
         <p style="color: var(--text-muted); margin-bottom: 20px;">Access your practice portfolio and free club resources.</p>
 
+        <?php if (isset($_GET['status']) && $_GET['status'] === 'registered'): ?>
+            <div style="background: #EBFEEB; color: #2B7A2B; padding: 10px; border-radius: 4px; margin-bottom: 15px;">
+                Registration successful! Please log in below.
+            </div>
+        <?php endif; ?>
+
         <?php if (!empty($error)): ?>
             <div style="background: #FFEBEB; color: #D8000C; padding: 10px; border-radius: 4px; margin-bottom: 15px;">
                 <?php echo htmlspecialchars($error); ?>
@@ -65,8 +71,17 @@ require_once __DIR__ . '/../../includes/header.php';
             <label for="email"><strong>Email Address</strong></label>
             <input type="email" id="email" name="email" required placeholder="member@student.mku.ac.ke" class="form-control mb-3">
 
-            <label for="password"><strong>Password</strong></label>
-            <input type="password" id="password" name="password" required placeholder="Enter your password" class="form-control mb-3">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label for="password" style="margin-bottom: 0;"><strong>Password</strong></label>
+                <a href="forgot_password.php" style="color: var(--mku-royal-blue); font-size: 0.85rem; text-decoration: none;">Forgot Password?</a>
+            </div>
+            
+            <div class="input-group mb-3 mt-2">
+                <input type="password" id="password" name="password" required placeholder="Enter your password" class="form-control">
+                <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password">
+                    <i class="bi bi-eye"></i>
+                </button>
+            </div>
 
             <button type="submit" class="btn btn-accent" style="width: 100%; margin-top: 10px;">Log In</button>
         </form>
@@ -76,5 +91,26 @@ require_once __DIR__ . '/../../includes/header.php';
         </p>
     </div>
 </div>
+
+<script>
+document.querySelectorAll('.toggle-password').forEach(button => {
+    button.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        const input = document.getElementById(targetId);
+        const icon = this.querySelector('i');
+        const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+        
+        input.setAttribute('type', type);
+        
+        if (type === 'password') {
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+        } else {
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+        }
+    });
+});
+</script>
 
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>

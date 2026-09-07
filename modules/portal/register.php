@@ -3,11 +3,11 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// 1. Connect to database
+// 1. Connect to database and load email helper
 require_once __DIR__ . '/../../includes/db.php';
+require_once __DIR__ . '/../../includes/email_helper.php';
 
 $error = '';
-$success = '';
 
 // 2. Redirect if already logged in (MUST happen before HTML output)
 if (isset($_SESSION['user_id'])) {
@@ -50,7 +50,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ':password_hash' => $passwordHash
                 ]);
 
-                $success = "Registration successful! You can now log in.";
+                // Construct and send the welcome email
+                $subject = "Welcome to the MKU NSE Club!";
+                $htmlContent = "
+                    <div style='font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #333;'>
+                        <h2 style='color: #003366;'>Welcome to the MKU NSE Club, " . htmlspecialchars($fullName) . "!</h2>
+                        <p>Your student account is now active. You can log in to access the Virtual Portfolio Tracker and start practicing your investment strategies.</p>
+                        <p>Use your KES 100,000 virtual starting balance wisely.</p>
+                        <br>
+                        <p>Best regards,<br>The MKU NSE Club Team</p>
+                    </div>
+                ";
+                
+                sendBrevoEmail($email, $fullName, $subject, $htmlContent);
+
+                // Redirect to login page immediately
+                header("Location: login.php?status=registered");
+                exit;
             }
         } catch (PDOException $e) {
             error_log("Registration Error: " . $e->getMessage());
@@ -78,12 +94,6 @@ require_once __DIR__ . '/../../includes/header.php';
             </div>
         <?php endif; ?>
 
-        <?php if (!empty($success)): ?>
-            <div style="background: #EBFEEB; color: #2B7A2B; padding: 10px; border-radius: 4px; margin-bottom: 15px;">
-                <?php echo htmlspecialchars($success); ?>
-            </div>
-        <?php endif; ?>
-
         <form method="POST" action="register.php">
             <label for="full_name"><strong>Full Name</strong></label>
             <input type="text" id="full_name" name="full_name" required placeholder="e.g. John Doe" class="form-control mb-3">
@@ -92,10 +102,20 @@ require_once __DIR__ . '/../../includes/header.php';
             <input type="email" id="email" name="email" required placeholder="e.g. member@student.mku.ac.ke" class="form-control mb-3">
 
             <label for="password"><strong>Password</strong></label>
-            <input type="password" id="password" name="password" required placeholder="Minimum 6 characters" class="form-control mb-3">
+            <div class="input-group mb-3">
+                <input type="password" id="password" name="password" required placeholder="Minimum 6 characters" class="form-control">
+                <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password">
+                    <i class="bi bi-eye"></i>
+                </button>
+            </div>
 
             <label for="confirm_password"><strong>Confirm Password</strong></label>
-            <input type="password" id="confirm_password" name="confirm_password" required placeholder="Re-enter password" class="form-control mb-3">
+            <div class="input-group mb-3">
+                <input type="password" id="confirm_password" name="confirm_password" required placeholder="Re-enter password" class="form-control">
+                <button class="btn btn-outline-secondary toggle-password" type="button" data-target="confirm_password">
+                    <i class="bi bi-eye"></i>
+                </button>
+            </div>
 
             <button type="submit" class="btn btn-accent" style="width: 100%; margin-top: 10px;">Register Account</button>
         </form>
@@ -105,5 +125,26 @@ require_once __DIR__ . '/../../includes/header.php';
         </p>
     </div>
 </div>
+
+<script>
+document.querySelectorAll('.toggle-password').forEach(button => {
+    button.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        const input = document.getElementById(targetId);
+        const icon = this.querySelector('i');
+        const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+        
+        input.setAttribute('type', type);
+        
+        if (type === 'password') {
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+        } else {
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+        }
+    });
+});
+</script>
 
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>

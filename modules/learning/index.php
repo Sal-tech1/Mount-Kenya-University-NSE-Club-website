@@ -38,8 +38,12 @@ function canAccess($moduleTier, $currentLevel, $tierLevels) {
     <header class="learning-banner">
         <div class="container learning-banner__inner">
             <div>
-                <h1 class="learning-banner__title">Learning Hub</h1>
-                <p class="learning-banner__subtitle">Master the financial markets through our structured curriculum.</p>
+                <h1 class="learning-banner__title text-white">Learning Hub</h1>
+                <p class="learning-banner__subtitle text-white">Master the financial markets through our structured curriculum.</p>
+                <div class="text-white mt-3" style="font-size: 0.95rem;">
+                    <strong>Step 1:</strong> Study the materials in our <a href="../resources/index.php" class="text-warning fw-bold text-decoration-none">Resource Centre</a>.<br>
+                    <strong>Step 2:</strong> Return here to pass your assessments and level up your rank.
+                </div>
             </div>
             <dl class="learning-banner__stats">
                 <div class="learning-banner__stat">

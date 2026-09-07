@@ -507,9 +507,17 @@ section, .section { color: var(--default-color); background-color: var(--backgro
 .hero .btn-watch-video:hover { color: var(--accent-color); }
 .hero .btn-watch-video:hover i { color: color-mix(in srgb, var(--accent-color), transparent 15%); }
 .hero .animated { animation: up-down 2s ease-in-out infinite alternate-reverse both; }
+@media (max-width: 768px) {
+  /* index.php sets padding/min-height inline on #hero for the desktop full-bleed
+     look; !important is required here so this rule can still win on mobile. */
+  .hero { padding: 80px 0 !important; min-height: 60vh !important; }
+  .hero h1 { font-size: 34px !important; line-height: 42px !important; }
+}
 @media (max-width: 640px) {
-  .hero h1 { font-size: 28px; line-height: 36px; }
-  .hero p { font-size: 18px; line-height: 24px; margin-bottom: 30px; }
+  /* index.php also sets the h1 font-size inline, so this needs !important too. */
+  .hero { padding: 60px 0 !important; min-height: auto !important; }
+  .hero h1 { font-size: 28px !important; line-height: 36px !important; }
+  .hero p { font-size: 18px !important; line-height: 24px !important; margin-bottom: 30px; }
   .hero .btn-get-started, .hero .btn-watch-video { font-size: 13px; }
 }
 @keyframes up-down { 0% { transform: translateY(10px); } 100% { transform: translateY(-10px); } }
@@ -1450,5 +1458,12 @@ body > nav a.nav-link--active {
     .quiz-option {
         padding: var(--space-md) var(--space-md);
         font-size: 0.95rem;
+    }
+
+    /* Quiz assessment page header (quiz.php) - its title is an inline-styled
+       span rather than .learning-banner__title, so it needs its own rule to
+       shrink on mobile the way the rest of the Learning Hub banners do. */
+    .learning-banner h1 span {
+        font-size: 1.5rem !important;
     }
 }
