@@ -1451,4 +1451,39 @@ body > nav a.nav-link--active {
         padding: var(--space-md) var(--space-md);
         font-size: 0.95rem;
     }
+
+    /* ==========================================================================
+       GLOBAL MOBILE LAYOUT FIXES
+       ========================================================================== */
+    
+    /* Prevent horizontal scrolling universally */
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100vw;
+    }
+
+    /* Header & Logo Fixes */
+    .header .logo {
+        max-width: 80vw; /* Prevent pushing the hamburger menu off-screen */
+    }
+
+    .header .sitename {
+        font-size: 1rem !important; /* Drastically reduce size from massive h1 */
+        margin-right: 10px !important;
+        white-space: normal;
+        line-height: 1.2;
+    }
+
+    .header .logo img {
+        max-height: 32px !important; /* Scale logos down slightly */
+        margin-right: 10px !important;
+    }
+
+    /* Container padding safeguards */
+    .container {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+        overflow-x: hidden;
+    }
 }
