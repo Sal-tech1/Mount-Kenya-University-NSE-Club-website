@@ -70,7 +70,7 @@ $quickStats = [
     ['label' => 'ETFs', 'value' => '5', 'icon' => 'bi-collection'],
 ];
 
-$custom_css = ['nse-theme.css', 'dashboard.css'];
+$custom_css = ['nsetheme.css', 'dashboard.css'];
 require_once __DIR__ . '/../../includes/header.php';
 ?>
 
