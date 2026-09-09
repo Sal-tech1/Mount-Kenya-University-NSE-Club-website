@@ -1,7 +1,6 @@
 <?php
-$docRoot = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
-$projectRoot = str_replace('\\', '/', dirname(__DIR__));
-$basePath = str_replace($docRoot, '', $projectRoot);
+// Ensure the base path relies on the secure config constant, preventing symlink errors on InfinityFree
+$basePath = defined('BASE_URL') ? BASE_URL : '';
 ?>
   <!-- Footer Section -->
   <footer id="footer" class="footer">

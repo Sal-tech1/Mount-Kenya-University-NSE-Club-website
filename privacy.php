@@ -26,7 +26,7 @@ require_once __DIR__ . '/includes/header.php';
                 <p>Our website uses strictly necessary session cookies to keep you logged in to the portal. We do not use third-party tracking cookies.</p>
 
                 <h4 class="mt-4">5. Contact Us</h4>
-                <p>If you have any questions regarding this policy or wish to delete your account, please reach out to the club leadership team via our <a href="index.php#contact">Contact Page</a>.</p>
+                <p>If you have any questions regarding this policy or wish to delete your account, please reach out to the club leadership team via our <a href="<?php echo $basePath; ?>/index.php#contact">Contact Page</a>.</p>
             </div>
         </div>
     </div>

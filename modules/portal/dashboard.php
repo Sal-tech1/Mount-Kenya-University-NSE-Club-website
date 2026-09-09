@@ -35,11 +35,7 @@ $userRole = $_SESSION['user_role'] ?? 'USER';
             </div>
             
             <div style="margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap;">
-                <?php if ($userRole === 'ADMIN'): ?>
-                    <a href="admin.php" class="btn btn-accent" style="padding: 8px 16px;">
-                        <i class="bi bi-shield-lock"></i> Admin Approvals
-                    </a>
-                <?php endif; ?>
+                <!-- Admin button successfully removed from here -->
                 <a href="logout.php" class="btn btn-secondary" style="padding: 8px 16px;">Log Out</a>
             </div>
         </div>

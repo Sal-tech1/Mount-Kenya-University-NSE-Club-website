@@ -14,7 +14,7 @@ require_once __DIR__ . '/includes/header.php';
   <main class="main">
 
     <!-- Hero Section -->
-    <section id="hero" class="hero section" style="position: relative; background: url('assets/img/hero-bg.jpg') center/cover no-repeat; padding: 140px 0; min-height: 80vh; display: flex; align-items: center;">
+    <section id="hero" class="hero section" style="position: relative; background: url('<?php echo $basePath; ?>/assets/img/hero-bg.jpg') center/cover no-repeat; padding: 140px 0; min-height: 80vh; display: flex; align-items: center;">
       <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.75); z-index: 1;"></div>
       
       <div class="container" style="position: relative; z-index: 2;">
@@ -39,7 +39,7 @@ require_once __DIR__ . '/includes/header.php';
       <div class="container">
         <div class="row gy-3">
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <img src="assets/img/about.jpg" alt="MKU NSE Club Members" class="img-fluid rounded shadow-sm">
+            <img src="<?php echo $basePath; ?>/assets/img/about.jpg" alt="MKU NSE Club Members" class="img-fluid rounded shadow-sm">
           </div>
           <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
             <div class="about-content ps-0 ps-lg-3">
@@ -89,7 +89,7 @@ require_once __DIR__ . '/includes/header.php';
                 <p class="card-text text-muted mt-3">
                   Practice buying and selling NSE shares with virtual capital. Test your investment strategies risk-free.
                 </p>
-                <a href="modules/tracker/index.php" class="btn btn-outline-success mt-3 px-4">Launch Tracker</a>
+                <a href="<?php echo $basePath; ?>/modules/tracker/index.php" class="btn btn-outline-success mt-3 px-4">Launch Tracker</a>
               </div>
             </div>
           </div>
@@ -102,7 +102,7 @@ require_once __DIR__ . '/includes/header.php';
                 <p class="card-text text-muted mt-3">
                   Access beginner-friendly courses, take interactive quizzes, and earn digital completion certificates.
                 </p>
-                <a href="modules/learning/index.php" class="btn btn-outline-success mt-3 px-4">View Courses</a>
+                <a href="<?php echo $basePath; ?>/modules/learning/index.php" class="btn btn-outline-success mt-3 px-4">View Courses</a>
               </div>
             </div>
           </div>
@@ -115,7 +115,7 @@ require_once __DIR__ . '/includes/header.php';
                 <p class="card-text text-muted mt-3">
                   Official members can access exclusive webinar recordings, meeting minutes, and financial books.
                 </p>
-                <a href="modules/resources/index.php" class="btn btn-outline-success mt-3 px-4">Access Library</a>
+                <a href="<?php echo $basePath; ?>/modules/resources/index.php" class="btn btn-outline-success mt-3 px-4">Access Library</a>
               </div>
             </div>
           </div>
@@ -173,9 +173,9 @@ require_once __DIR__ . '/includes/header.php';
           </p>
           <div class="d-flex justify-content-center gap-3 flex-wrap mt-4">
             <?php if (!isset($_SESSION['user_id'])): ?>
-              <a href="modules/portal/register.php" class="btn btn-success btn-lg px-4" style="background-color: var(--primary-green); border: none;">Create Free Account</a>
+              <a href="<?php echo $basePath; ?>/modules/portal/register.php" class="btn btn-success btn-lg px-4" style="background-color: var(--primary-green); border: none;">Create Free Account</a>
             <?php else: ?>
-              <a href="modules/portal/dashboard.php" class="btn btn-success btn-lg px-4" style="background-color: var(--primary-green); border: none;">Go to Dashboard</a>
+              <a href="<?php echo $basePath; ?>/modules/portal/dashboard.php" class="btn btn-success btn-lg px-4" style="background-color: var(--primary-green); border: none;">Go to Dashboard</a>
             <?php endif; ?>
           </div>
         </div>

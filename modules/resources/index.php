@@ -17,7 +17,7 @@ $resources = [
         'date'        => '2026-09-01',
         'type'        => 'pdf',
         'size'        => '1.2 MB',
-        'file_url'    => '../../assets/docs/beginner_fundamentals.pdf'
+        'file_url'    => '/assets/docs/beginner_fundamentals.pdf'
     ],
     [
         'title'       => 'Intermediate Track: Portfolio Management',
@@ -27,7 +27,7 @@ $resources = [
         'date'        => '2026-09-02',
         'type'        => 'pdf',
         'size'        => '1.5 MB',
-        'file_url'    => '../../assets/docs/intermediate_portfolio.pdf'
+        'file_url'    => '/assets/docs/intermediate_portfolio.pdf'
     ],
     [
         'title'       => 'Advanced Track: Technical Analysis',
@@ -37,7 +37,7 @@ $resources = [
         'date'        => '2026-09-03',
         'type'        => 'pdf',
         'size'        => '1.8 MB',
-        'file_url'    => '../../assets/docs/advanced_analysis.pdf'
+        'file_url'    => '/assets/docs/advanced_analysis.pdf'
     ],
     [
         'title'       => 'Safaricom PLC FY Financial Statements',
@@ -47,7 +47,7 @@ $resources = [
         'date'        => '2026-02-09',
         'type'        => 'pdf',
         'size'        => '2.1 MB',
-        'file_url'    => '../../assets/docs/safaricom_financials.pdf'
+        'file_url'    => '/assets/docs/safaricom_financials.pdf'
     ]
 ];
 
@@ -129,10 +129,11 @@ require_once __DIR__ . '/../../includes/header.php';
             </div>
             
             <div class="d-flex gap-2 mt-auto">
-              <a href="<?php echo htmlspecialchars($r['file_url']); ?>" target="_blank" class="btn btn-outline-secondary w-50 fw-bold">
+              <!-- Prepended $basePath to the file links -->
+              <a href="<?php echo $basePath . htmlspecialchars($r['file_url']); ?>" target="_blank" class="btn btn-outline-secondary w-50 fw-bold">
                 <i class="bi bi-eye"></i> Preview
               </a>
-              <a href="<?php echo htmlspecialchars($r['file_url']); ?>" download class="btn btn-success w-50 fw-bold" style="background-color: var(--primary-green); border: none;">
+              <a href="<?php echo $basePath . htmlspecialchars($r['file_url']); ?>" download class="btn btn-success w-50 fw-bold" style="background-color: var(--primary-green); border: none;">
                 <i class="bi bi-download"></i> Download
               </a>
             </div>
@@ -149,8 +150,6 @@ require_once __DIR__ . '/../../includes/header.php';
   </div>
 
 </main>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

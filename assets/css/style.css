@@ -754,68 +754,6 @@ and the master css standardized in all other pages */
 /* ===================================== */
 
 /* ==========================================================================
-   SITE HEADER & NAVIGATION
-   ========================================================================== */
-
-body > header {
-    background: var(--mku-royal-blue);
-    color: #FFFFFF;
-    padding: var(--space-xl) var(--space-md) var(--space-lg);
-}
-
-body > header h1 {
-    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    max-width: var(--max-width);
-    margin: 0 auto;
-    line-height: 1.25;
-}
-
-body > header p {
-    max-width: var(--max-width);
-    margin: var(--space-sm) auto 0;
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.78);
-}
-
-body > nav {
-    background: #FFFFFF;
-    border-bottom: 1px solid var(--border-color);
-    padding: 0 var(--space-md);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-body > nav {
-    display: flex;
-    justify-content: center;
-    gap: var(--space-xs);
-    flex-wrap: wrap;
-}
-
-body > nav a {
-    display: inline-block;
-    padding: 14px 18px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    text-decoration: none;
-    border-bottom: 2px solid transparent;
-    transition: color 0.15s ease, border-color 0.15s ease;
-}
-
-body > nav a:hover,
-body > nav a.nav-link--active {
-    color: var(--mku-royal-blue);
-}
-
-body > nav a.nav-link--active {
-    border-bottom-color: var(--primary-green);
-}
-
-/* ==========================================================================
    LEARNING CENTRE
    ========================================================================== */
 

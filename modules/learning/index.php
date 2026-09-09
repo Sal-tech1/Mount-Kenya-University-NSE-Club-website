@@ -31,6 +31,22 @@ $currentLevel = $tierLevels[$userTier] ?? 1;
 function canAccess($moduleTier, $currentLevel, $tierLevels) {
     return $currentLevel >= $tierLevels[$moduleTier];
 }
+
+// Fetch all lessons from the database and group them by tier
+$lessonStmt = $pdo->query("SELECT * FROM lessons ORDER BY sort_order ASC, lesson_id ASC");
+$allLessons = $lessonStmt->fetchAll(PDO::FETCH_ASSOC);
+
+$lessonsByTier = [
+    'BEGINNER' => [],
+    'INTERMEDIATE' => [],
+    'ADVANCED' => []
+];
+
+foreach ($allLessons as $lesson) {
+    if (array_key_exists($lesson['tier'], $lessonsByTier)) {
+        $lessonsByTier[$lesson['tier']][] = $lesson;
+    }
+}
 ?>
 
 <main class="learning">
@@ -66,6 +82,21 @@ function canAccess($moduleTier, $currentLevel, $tierLevels) {
                     <p class="track__description">Learn the basics of equities, bonds, and how the Nairobi Securities Exchange operates.</p>
                 </div>
             </header>
+            
+            <?php if (!empty($lessonsByTier['BEGINNER'])): ?>
+            <div class="track__lessons">
+                <?php foreach ($lessonsByTier['BEGINNER'] as $index => $lesson): ?>
+                    <div class="lesson-row">
+                        <div class="lesson-row__num"><?php echo str_pad($index + 1, 2, '0', STR_PAD_LEFT); ?></div>
+                        <div>
+                            <div class="lesson-row__title"><?php echo htmlspecialchars($lesson['title']); ?></div>
+                            <div class="lesson-row__summary"><?php echo htmlspecialchars($lesson['summary']); ?></div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <?php endif; ?>
+
             <footer class="track__footer">
                 <a href="quiz.php?level=beginner" class="track__quiz-link">
                     Take Assessment <span class="track__quiz-arrow"></span>
@@ -84,6 +115,21 @@ function canAccess($moduleTier, $currentLevel, $tierLevels) {
                     <p class="track__description">Dive into fundamental analysis, reading financial statements, and building a balanced portfolio.</p>
                 </div>
             </header>
+            
+            <?php if (!empty($lessonsByTier['INTERMEDIATE'])): ?>
+            <div class="track__lessons">
+                <?php foreach ($lessonsByTier['INTERMEDIATE'] as $index => $lesson): ?>
+                    <div class="lesson-row">
+                        <div class="lesson-row__num"><?php echo str_pad($index + 1, 2, '0', STR_PAD_LEFT); ?></div>
+                        <div>
+                            <div class="lesson-row__title"><?php echo htmlspecialchars($lesson['title']); ?></div>
+                            <div class="lesson-row__summary"><?php echo htmlspecialchars($lesson['summary']); ?></div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <?php endif; ?>
+
             <footer class="track__footer">
                 <?php if($hasInt): ?>
                 <a href="quiz.php?level=intermediate" class="track__quiz-link">
@@ -106,6 +152,21 @@ function canAccess($moduleTier, $currentLevel, $tierLevels) {
                     <p class="track__description">Master chart patterns, advanced valuation models, and algorithmic trading concepts.</p>
                 </div>
             </header>
+            
+            <?php if (!empty($lessonsByTier['ADVANCED'])): ?>
+            <div class="track__lessons">
+                <?php foreach ($lessonsByTier['ADVANCED'] as $index => $lesson): ?>
+                    <div class="lesson-row">
+                        <div class="lesson-row__num"><?php echo str_pad($index + 1, 2, '0', STR_PAD_LEFT); ?></div>
+                        <div>
+                            <div class="lesson-row__title"><?php echo htmlspecialchars($lesson['title']); ?></div>
+                            <div class="lesson-row__summary"><?php echo htmlspecialchars($lesson['summary']); ?></div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <?php endif; ?>
+
             <footer class="track__footer">
                 <?php if($hasAdv): ?>
                 <a href="quiz.php?level=advanced" class="track__quiz-link">

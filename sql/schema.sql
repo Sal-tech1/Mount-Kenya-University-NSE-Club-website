@@ -11,6 +11,9 @@ CREATE TABLE IF NOT EXISTS users (
     password_hash VARCHAR(255) NOT NULL,
     user_role ENUM('USER', 'MEMBER', 'ADMIN') DEFAULT 'USER',
     learning_tier ENUM('BEGINNER', 'INTERMEDIATE', 'ADVANCED', 'GRADUATE') DEFAULT 'BEGINNER',
+    virtual_cash DECIMAL(12, 2) DEFAULT 100000.00,
+    reset_token VARCHAR(64) NULL,
+    reset_expires DATETIME NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -21,6 +24,7 @@ CREATE TABLE IF NOT EXISTS portfolio_trades (
     ticker_symbol VARCHAR(10) NOT NULL,
     quantity INT NOT NULL,
     trade_type ENUM('BUY', 'SELL') DEFAULT 'BUY',
+    trade_price DECIMAL(10, 2) NOT NULL,
     trade_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE SET NULL
 );

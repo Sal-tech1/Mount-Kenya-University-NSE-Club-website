@@ -1,4 +1,79 @@
 <?php
+// Initialize session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+require_once __DIR__ . '/../../includes/db.php';
+
+// ============================================================================
+// AUTOMATED MARKET SHUFFLE (Traffic-Triggered Execution)
+// ============================================================================
+// Check the timestamp of the last market update
+$lastUpdateStmt = $pdo->query("SELECT MAX(last_updated) FROM market_prices");
+$lastUpdate = $lastUpdateStmt->fetchColumn();
+
+// If it has been more than 24 hours (86400 seconds) since the last update, shuffle the market
+if (!$lastUpdate || (time() - strtotime($lastUpdate)) > 86400) {
+    $priceStmt = $pdo->query("SELECT ticker_symbol, current_price FROM market_prices");
+    $stocks = $priceStmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $shuffleStmt = $pdo->prepare("
+        UPDATE market_prices 
+        SET previous_close = current_price, 
+            current_price = :new_price,
+            last_updated = CURRENT_TIMESTAMP
+        WHERE ticker_symbol = :ticker
+    ");
+
+    foreach ($stocks as $stock) {
+        $ticker = $stock['ticker_symbol'];
+        $currentPrice = (float)$stock['current_price'];
+        
+        if ($currentPrice <= 0) $currentPrice = 20.00; 
+        
+        // Random shift between -3.5% and +3.8%
+        $percentageChange = (rand(-35, 38) / 1000.0); 
+        $newPrice = round($currentPrice * (1 + $percentageChange), 2);
+        
+        if ($newPrice < 1.00) $newPrice = 1.00;
+
+        $shuffleStmt->execute([
+            ':new_price' => $newPrice,
+            ':ticker' => $ticker
+        ]);
+    }
+}
+// ============================================================================
+
+// Fetch the newly updated (or current) live prices for the ticker feed
+$feedStmt = $pdo->query("SELECT ticker_symbol, current_price, previous_close FROM market_prices");
+$liveFeedData = $feedStmt->fetchAll(PDO::FETCH_ASSOC);
+
+$tickerFeed = [];
+foreach ($liveFeedData as $row) {
+    $current = (float)$row['current_price'];
+    $previous = (float)$row['previous_close'];
+    $deltaValue = $current - $previous;
+    
+    $tickerFeed[] = [
+        'ticker' => $row['ticker_symbol'],
+        'price'  => number_format($current, 2),
+        'delta'  => ($deltaValue > 0 ? '+' : '') . number_format($deltaValue, 2),
+        'up'     => $deltaValue >= 0
+    ];
+}
+
+// Ensure there is fallback data if the database table is completely empty
+if (empty($tickerFeed)) {
+    $tickerFeed = [
+        ['ticker' => 'SCOM', 'price' => '29.85', 'delta' => '+0.00', 'up' => true],
+        ['ticker' => 'EQTY', 'price' => '48.20', 'delta' => '+0.00', 'up' => true],
+        ['ticker' => 'KCB',  'price' => '41.10', 'delta' => '+0.00', 'up' => true]
+    ];
+}
+
+// Static fallback data for UI elements not yet connected to the database
 $marketSummary = [
     ['label' => 'NSE All Share Index', 'value' => '128.46', 'delta' => '+0.62%', 'up' => true,  'icon' => 'bi-graph-up-arrow'],
     ['label' => 'NSE 20 Share Index',  'value' => '1,926.14', 'delta' => '+0.94%', 'up' => true, 'icon' => 'bi-bar-chart'],
@@ -21,18 +96,6 @@ $topLosers = [
     ['name' => 'Sameer Africa PLC',      'ticker' => 'SMER', 'pct' => '-3.15%'],
     ['name' => 'Car & General (K) Ltd',  'ticker' => 'C&G',  'pct' => '-2.47%'],
     ['name' => 'Eveready East Africa',   'ticker' => 'EVRD', 'pct' => '-1.88%'],
-];
-
-$tickerFeed = [
-    ['ticker' => 'SCOM', 'price' => '29.85', 'delta' => '+0.35', 'up' => true],
-    ['ticker' => 'EQTY', 'price' => '48.20', 'delta' => '-0.60', 'up' => false],
-    ['ticker' => 'KCB',  'price' => '41.10', 'delta' => '+0.85', 'up' => true],
-    ['ticker' => 'EABL', 'price' => '162.50', 'delta' => '+2.25', 'up' => true],
-    ['ticker' => 'COOP', 'price' => '16.75', 'delta' => '-0.10', 'up' => false],
-    ['ticker' => 'ABSA', 'price' => '18.90', 'delta' => '+0.20', 'up' => true],
-    ['ticker' => 'BAMB', 'price' => '58.75', 'delta' => '+4.55', 'up' => true],
-    ['ticker' => 'KQ',   'price' => '5.52', 'delta' => '+0.32', 'up' => true],
-    ['ticker' => 'KPLC', 'price' => '3.98', 'delta' => '-0.24', 'up' => false],
 ];
 
 $marketNews = [
@@ -64,10 +127,10 @@ $upcomingEvents = [
 ];
 
 $quickStats = [
-    ['label' => 'Listed Companies', 'value' => '64', 'icon' => 'bi-buildings'],
-    ['label' => 'Active Investors', 'value' => '2.1M', 'icon' => 'bi-people'],
-    ['label' => 'Bond Listings', 'value' => '78', 'icon' => 'bi-file-earmark-ruled'],
-    ['label' => 'ETFs', 'value' => '5', 'icon' => 'bi-collection'],
+    ['label' => 'Total Listed Companies', 'value' => '63', 'icon' => 'bi-building'],
+    ['label' => 'Active Trading Accounts', 'value' => '1.5M+', 'icon' => 'bi-person-lines-fill'],
+    ['label' => 'Foreign Participation', 'value' => '42%', 'icon' => 'bi-globe'],
+    ['label' => 'Bonds Turnover', 'value' => 'KES 4.2B', 'icon' => 'bi-file-earmark-text'],
 ];
 
 $custom_css = ['nsetheme.css', 'dashboard.css'];
@@ -234,6 +297,6 @@ require_once __DIR__ . '/../../includes/header.php';
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
-<script src="../../assets/js/dashboard.js"></script>
+<script src="<?php echo $basePath; ?>/assets/js/dashboard.js"></script>
 
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>

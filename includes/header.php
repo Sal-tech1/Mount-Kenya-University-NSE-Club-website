@@ -95,9 +95,10 @@ $social_image = $social_image ?? 'https://www.nsemkuclub.co.ke/assets/img/defaul
   <header id="header" class="header sticky-top">
     <div class="branding d-flex align-items-center">
       <div class="container position-relative d-flex align-items-center justify-content-between">
-        <a href="<?php echo $basePath; ?>/index.php" class="logo d-flex align-items-center">
-          <img src="<?php echo $basePath; ?>/assets/img/logo.png" alt="NSE Club Logo" style="max-height: 40px; margin-right: 15px;">
-          <h1 class="sitename" style="margin-right: 15px;">Mount Kenya University NSE Club</h1>
+        
+        <a href="<?php echo $basePath; ?>/index.php" class="logo d-flex align-items-center gap-2 text-decoration-none">
+          <img src="<?php echo $basePath; ?>/assets/img/logo.png" alt="NSE Club Logo" style="max-height: 40px;">
+          <h1 class="sitename fs-4 m-0 d-none d-md-block text-dark">Mount Kenya University NSE Club</h1>
           <img src="<?php echo $basePath; ?>/assets/img/mku-logo.png" alt="MKU Logo" style="max-height: 40px;">
         </a>
 
@@ -113,6 +114,11 @@ $social_image = $social_image ?? 'https://www.nsemkuclub.co.ke/assets/img/defaul
               <ul>
                 <?php if (isset($_SESSION['user_id'])): ?>
                   <li><a href="<?php echo $basePath; ?>/modules/portal/dashboard.php">My Dashboard</a></li>
+                  
+                  <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'ADMIN'): ?>
+                    <li><a href="<?php echo $basePath; ?>/modules/portal/admin.php" style="color: #D8000C; font-weight: 600;">Admin Panel</a></li>
+                  <?php endif; ?>
+                  
                   <li><a href="<?php echo $basePath; ?>/modules/portal/logout.php">Log Out</a></li>
                 <?php else: ?>
                   <li><a href="<?php echo $basePath; ?>/modules/portal/login.php">Sign In</a></li>

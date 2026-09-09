@@ -15,14 +15,16 @@ $userId = $_SESSION['user_id'];
 $successMsg = '';
 $errorMsg = '';
 
-// Live Market Prices for Valuation
-$livePrices = [
-    'SCOM' => 29.85, 
-    'EQTY' => 48.20, 
-    'KCB'  => 41.10, 
-    'EABL' => 162.50,
-    'KENGEN' => 2.50
-];
+// ============================================================================
+// MARKET DATA INTEGRATION
+// ============================================================================
+// Retrieve live prices directly from the database table
+$stmt = $pdo->query("SELECT ticker_symbol, current_price FROM market_prices");
+$livePrices = [];
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $livePrices[$row['ticker_symbol']] = (float)$row['current_price'];
+}
+// ============================================================================
 
 // Fetch User's Current Virtual Cash
 $userStmt = $pdo->prepare("SELECT virtual_cash FROM users WHERE user_id = :uid");
